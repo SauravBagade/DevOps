@@ -1,4 +1,4 @@
-# Linux Documentation – Index Page (ONLY NUMBERING FIXED)
+# Linux Documentation – Index Page 
 ---
 ## 1. Linux Introduction Basic
 
