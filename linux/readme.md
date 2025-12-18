@@ -1,6 +1,6 @@
 # Linux Documentation – Index Page 
 ---
-[##](./1-linux-introduction-basic.md) 1. Linux Introduction Basic
+##(./1-linux-introduction-basic.md) 1. Linux Introduction Basic
 
 1.1 What is Linux  
 1.2 Why Linux is Used  
