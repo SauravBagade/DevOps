@@ -12,7 +12,7 @@
 
 ---
 
-[2. Linux History & Evolution](./2-linux-history-evolution.md)
+[2. Linux History & Evolution](./2-Linux-History-&-Evolution.md)
 
 2.1 History of Unix  
 2.2 Linus Torvalds  
