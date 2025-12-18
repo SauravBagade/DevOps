@@ -12,7 +12,7 @@
 
 ---
 
-[2.Linux History & Evolution](./2.Linux History & Evolution.md)
+[2. Linux History & Evolution](./2-linux-history-evolution.md)
 
 2.1 History of Unix  
 2.2 Linus Torvalds  
@@ -21,7 +21,7 @@
 
 ---
 
-[3.Linux Architecture](./3.Linux Architecture.md)
+[3.Linux Architecture](./3-Linux-Architecture.md)
 
 3.1 Hardware Layer  
 3.2 Kernel  
@@ -33,7 +33,7 @@
 
 ---
 
-[4.Linux Distributions](./4.Linux Distributions.md)
+[4.Linux Distributions](./4-Linux-Distributions.md)
 
 4.1 Debian Family
 
@@ -55,8 +55,7 @@
 
 ---
 
-(5.Linux File System Hierarchy (FHS))[./ 5. Linux File System Hierarchy (FHS)
-.md]
+[5.Linux File System Hierarchy (FHS)](./5-Linux-File-System-Hierarchy-(FHS).md)
 
 /
 ├── bin  
