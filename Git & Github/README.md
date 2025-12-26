@@ -87,85 +87,93 @@ It makes collaboration easier by:
 | No account needed        | Requires GitHub account              |
 
 ---
+## 📊 Git & GitHub Commands – Table Format
 
-## ⚡ Git Basics Commands
+### 🔹 Basic Git Commands
 
-```bash
-# Initialize repo
-git init
+| Command                       | Description                         |
+| ----------------------------- | ----------------------------------- |
+| `git init`                    | Initialize a new Git repository     |
+| `git clone <repo-url>`        | Clone a repository from GitHub      |
+| `git remote`                  | Show remote repositories            |
+| `git remote add origin <url>` | Connect local repo to GitHub        |
+| `git status`                  | Check current repository status     |
+| `git log`                     | View commit history                 |
+| `git show <commit-id>`        | Show details of a specific commit   |
+| `git add .`                   | Add all files to staging area       |
+| `git commit -m "message"`     | Commit staged changes               |
+| `git push`                    | Push commits to remote repository   |
+| `git pull`                    | Fetch and merge changes from remote |
+| `git fetch origin`            | Fetch changes without merging       |
 
-# Clone repo
-git clone https://github.com/username/repo.git
+---
 
-# Connect remote
-git remote add origin <url>
+### 🔹 Branching & Merging
 
-# Check status
-git status
+| Command                      | Description                            |
+| ---------------------------- | -------------------------------------- |
+| `git branch`                 | List all branches                      |
+| `git branch <name>`          | Create a new branch                    |
+| `git branch -m <new-name>`   | Rename a branch                        |
+| `git checkout <branch>`      | Switch to another branch               |
+| `git merge <branch>`         | Merge branch into current branch       |
+| `git merge --no-ff <branch>` | No fast-forward merge (creates commit) |
 
-# Add files
-git add .
+---
 
-# Commit changes
-git commit -m "Your commit message"
+### 🔹 Undo & Recovery
 
-# View log
-git log
+| Command                        | Description                               |
+| ------------------------------ | ----------------------------------------- |
+| `git restore <file>`           | Restore file to last committed state      |
+| `git reset --hard <commit-id>` | Reset code and history (dangerous)        |
+| `git revert <commit-id>`       | Safely undo a commit                      |
+| `git reflog`                   | Recover lost commits                      |
+| `git cherry-pick <commit-id>`  | Apply specific commit from another branch |
 
-# Show changes
-git show <commit-id>
+---
 
-# Push to remote
-git push origin main
+### 🔹 Git Diff
 
-# Pull from remote
-git pull origin main
+| Command             | Description           |
+| ------------------- | --------------------- |
+| `git diff`          | Show unstaged changes |
+| `git diff --cached` | Show staged changes   |
 
-# Fetch remote
-git fetch origin
+---
 
-# Manage branches
-git branch -m main
-git branch <name>
-git branch
+### 🔹 Git Stash
 
-# Switch branch
-git checkout <branch-name>
+| Command           | Description              |
+| ----------------- | ------------------------ |
+| `git stash`       | Save uncommitted changes |
+| `git stash list`  | List all stashes         |
+| `git stash apply` | Apply last stash         |
+| `git stash pop`   | Apply and delete stash   |
+| `git stash drop`  | Delete a stash           |
 
-# Merge branch
-git merge main
+---
 
-# Remove file
-git rm filename
+### 🔹 Advanced Git
 
-# Restore file
-git restore filename
+| Command                    | Description                       |
+| -------------------------- | --------------------------------- |
+| `git rebase <branch>`      | Reapply commits on another branch |
+| `git bisect`               | Find bug-causing commit           |
+| `git tag -a v1.0 -m "msg"` | Create annotated tag              |
+| `git hooks`                | Automated scripts on Git events   |
+| `git clean -n`             | Preview untracked file removal    |
+| `git clean -f`             | Remove untracked files            |
 
-# View diff
-git diff
-git diff --cached
+---
 
-# Stash changes
-git stash
-git stash list
-git stash apply
-git stash pop
-git stash drop
+### 🔹 Git Configuration
 
-# Rebase branch
-git rebase main
-
-# Tag commits
-git tag
-git tag -a v1.0 -m "Version 1.0"
-
-# Clean untracked files
-git clean -n
-git clean -f
-
-# Create .gitignore
-# Add patterns of files/folders to ignore
-````
+| Command                                  | Description            |
+| ---------------------------------------- | ---------------------- |
+| `git config --global user.name "Name"`   | Set username           |
+| `git config --global user.email "email"` | Set email              |
+| `git config --list`                      | View Git configuration |
 
 ---
 
