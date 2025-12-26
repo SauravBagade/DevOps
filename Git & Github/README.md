@@ -1,8 +1,96 @@
-Git & GitHub documentation:
-
-
 # Git & GitHub Complete Documentation
 
+# 📘 Source Code Management (SCM)
+
+## 🔹 What is Source Code Management?
+
+**Source Code Management (SCM)** is used to manage, track, and control changes in source code during software development.
+
+---
+
+## 🔹 Types of Source Code Management
+
+There are **two main types**:
+
+### 1️⃣ CVCS — Centralized Version Control System
+
+### 2️⃣ DVCS — Distributed Version Control System
+
+---
+
+## 🟦 CVCS — Centralized Version Control System
+
+### 🔹 How it works
+
+* There is **one central repository (server)**
+* All developers connect to this server
+* Code checkout, commit, and update happen from the central server
+
+### 🔹 Architecture
+
+* **Repository (Server)**
+* Multiple **Working Copies** on developer machines
+
+### 🔹 Flow
+
+* Checkout → Modify → Commit → Update
+
+### 🔹 Disadvantage
+
+* **Single point of failure**
+* If server is down → no commits possible
+
+### 🔹 Examples
+
+* SVN
+* CVS
+* Perforce
+
+---
+
+## 🟩 DVCS — Distributed Version Control System
+
+### 🔹 How it works
+
+* Every developer has a **full repository copy**
+* Repository exists on **local machine + remote server**
+* Developers can work **offline**
+
+### 🔹 Architecture
+
+* Central repository (optional)
+* Multiple local repositories
+* Push & pull between repositories
+
+### 🔹 Flow
+
+* Commit locally → Push to remote
+* Pull updates from remote
+
+### 🔹 Advantages
+
+* No single point of failure
+* Faster operations
+* Offline commits supported
+
+### 🔹 Examples
+
+* Git
+* Mercurial
+
+---
+
+## 🔄 CVCS vs DVCS (Comparison)
+
+| Feature       | CVCS         | DVCS           |
+| ------------- | ------------ | -------------- |
+| Repository    | Central only | Local + Remote |
+| Offline work  | ❌ No         | ✅ Yes          |
+| Speed         | Medium       | Fast           |
+| Failure risk  | High         | Low            |
+| Popular today | Low          | Very High      |
+
+---
 ## 🚀 What is Git?
 Git is a distributed version control system that helps developers track changes in source code during software development.
 
@@ -58,6 +146,27 @@ v
 +----------------+
 \|  Remote Repo   |
 +----------------+
+
+````
+
+### Git Three-Stage Architecture Diagram
+
+````
++-------------------+        git add        +-------------------+       git commit
+|                   |  ----------------->  |                   |  ----------------->
+|  Working Directory|                      |   Staging Area     |                  |
+|  (Edit files)     |  <-----------------  |   (Index)          |  <----------------
+|                   |     git restore      |                   |     git checkout
++-------------------+                      +-------------------+                  |
+                                                                                  |
+                                                                                  v
+                                                                          +-------------------+
+                                                                          |                   |
+                                                                          |   Git Repository  |
+                                                                          |   (.git folder)   |
+                                                                          |                   |
+                                                                          +-------------------+
+
 
 ````
 
@@ -267,5 +376,3 @@ project-name/
 | Push branch          | `git push origin feature-branch`                               |
 | Create PR            | GitHub → Open PR                                               |
 | Sync fork (optional) | `git pull upstream main` → `git push origin main`              |
-
-```
