@@ -98,13 +98,24 @@ It makes collaboration easier by:
 | `git remote`                  | Show remote repositories            |
 | `git remote add origin <url>` | Connect local repo to GitHub        |
 | `git status`                  | Check current repository status     |
-| `git log`                     | View commit history                 |
 | `git show <commit-id>`        | Show details of a specific commit   |
 | `git add .`                   | Add all files to staging area       |
 | `git commit -m "message"`     | Commit staged changes               |
 | `git push`                    | Push commits to remote repository   |
 | `git pull`                    | Fetch and merge changes from remote |
 | `git fetch origin`            | Fetch changes without merging       |
+
+---
+
+### logs
+
+| Command                   | Use                    |
+| ------------------------- | ---------------------- |
+| `git log --oneline`       | Short commit log       |
+| `git log --graph`         | Visual branch graph    |
+| `git log --author="name"` | Filter by author       |
+| `git blame <file>`        | Who changed which line |
+
 
 ---
 
