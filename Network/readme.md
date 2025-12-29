@@ -1,6 +1,7 @@
-## Networking Fundamentals to Learn (Self-Study)           
+## Networking Fundamentals to Learn (Self-Study)
+
 Even before taking paid courses, you should master these basics:
-1 what is a computer metwork how to internet work 
+1 what is a computer metwork how to internet work
 
 2 OSI & TCP/IP models
 
@@ -24,7 +25,7 @@ Even before taking paid courses, you should master these basics:
 
 ## 1 what is a computer metwork how to internet work
 
-A computer network is a group of two or more computers/devices connected together 
+A computer network is a group of two or more computers/devices connected together
 so they can share data, resources, and services.
 👉 A computer network allows devices to communicate with each other
 
@@ -37,7 +38,6 @@ Modem (connects to ISP)
 Cables / Wi-Fi
 IP Address (unique identity)
 
-
 Types of Computer Networks
 
 | Type | Full Form                 | Example             |
@@ -49,7 +49,7 @@ Types of Computer Networks
 
 Step-by-Step: How Internet Works
 1️⃣ You type a website name
-Example: www.google.com
+Example: [www.google.com](http://www.google.com)
 
 2️⃣ DNS converts name to IP address
 DNS = Domain Name System
@@ -110,7 +110,6 @@ OSI (Open Systems Interconnection) is a conceptual model that explains how data 
 | 2        | **Data Link**    | MAC address        | Switch         |
 | 1        | **Physical**     | Cables, signals    | Ethernet       |
 
-
 📌 Real Example (Opening a Website)
 
 Application → Browser sends request
@@ -119,7 +118,7 @@ Session → Session established
 Transport → TCP splits data
 Network → IP routing
 Data Link → MAC addressing
-Physical → Electrical signals sent  
+Physical → Electrical signals sent
 
 ---
 
@@ -241,7 +240,7 @@ Network IP → First IP (cannot assign)
 Broadcast IP → Last IP (cannot assign)
 
 ex  192.168.1.0 → Network
-    192.168.1.255 → Broadcast
+192.168.1.255 → Broadcast
 
 ✅ CIDR Basic Examples
 
@@ -253,6 +252,7 @@ Total IPs: 64
 Usable IPs: 62
 
 🚀 Quick CIDR Cheat Sheet
+
 | CIDR | Total IPs | Usable |
 | ---- | --------- | ------ |
 | /30  | 4         | 2      |
@@ -274,7 +274,7 @@ DNS converts a domain name (human-friendly) into an IP address (machine-friendly
 👉 Computers understand IP, not names.
 
 🔄 How DNS Works (Step-by-Step)
-1️⃣ You type www.example.com
+1️⃣ You type [www.example.com](http://www.example.com)
 2️⃣ Browser checks local cache
 3️⃣ If not found → asks DNS Resolver (ISP)
 4️⃣ Resolver asks:
@@ -362,6 +362,7 @@ Protocol (TCP/UDP)
 Direction (Inbound / Outbound)
 
 🔄 Types of Firewalls
+
 | Type                | Description            | Example           |
 | ------------------- | ---------------------- | ----------------- |
 | Network Firewall    | Protects whole network | Router firewall   |
@@ -390,21 +391,21 @@ EKS nodes
 
 Security Group vs Firewall (Linux)
 
-| Feature        | Security Group | Linux Firewall      |
-| -------------- | -------------- | ------------------- |
-| Level          | Cloud instance | OS level            |
-| Stateful       | ✅ Yes         |❌Usually stateless |
-| Rules          | Allow only     | Allow & Deny        |
-| Used in DevOps | ✅ Daily       | ✅ Daily           |
+| Feature        | Security Group | Linux Firewall     |
+| -------------- | -------------- | ------------------ |
+| Level          | Cloud instance | OS level           |
+| Stateful       | ✅ Yes          | ❌Usually stateless |
+| Rules          | Allow only     | Allow & Deny       |
+| Used in DevOps | ✅ Daily        | ✅ Daily            |
 
 Security Group vs NACL (Important)
 
 | Feature       | Security Group | NACL         |
 | ------------- | -------------- | ------------ |
 | Level         | Instance       | Subnet       |
-| Stateful      | ✅ Yes        | ❌ No        |
+| Stateful      | ✅ Yes          | ❌ No         |
 | Rules         | Allow only     | Allow & Deny |
-| Order matters | ❌ No         | ✅ Yes       |
+| Order matters | ❌ No           | ✅ Yes        |
 
 ---
 
@@ -569,7 +570,6 @@ Use Case
 
 ---
 
-
 ## 8 Linux Networking (ip, ifconfig, route)
 
 🔍 Command Overview Table
@@ -633,7 +633,7 @@ Use Case
 
 🔵 `route` Command (Legacy Routing)
 
- 🔹 What it does
+🔹 What it does
 
 * View & modify routing table
 
