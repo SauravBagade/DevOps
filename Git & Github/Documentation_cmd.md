@@ -74,17 +74,6 @@ Direct, practical, **no sugarcoating** (as you prefer).
 | `git reflog`      | Recover deleted commits |
 | `git hooks`       | CI/CD automation        |
 
----
-
-## 📌 Real-World Workflow (Daily Use)
-
-```bash
-git status
-git add .
-git commit -m "feature added"
-git pull origin main
-git push origin main
-```
 ------------------------------------------------------------------------
 
 ## 🧱 Git Basics: Step-by-Step Guide
