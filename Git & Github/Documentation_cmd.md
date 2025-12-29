@@ -1,78 +1,90 @@
 # Git & GitHub Full Documentation
 
 ## 🚀 Git Basics - List of All Commands
+Below is a **complete Git command list** you asked for — **table format + clear use-cases**, beginner → advanced level.
+Direct, practical, **no sugarcoating** (as you prefer).
 
--   `git init`\
-    Creates a repository
+---
 
--   `git clone <repository-url>`\
-    Example: `git clone https://github.com/username/repo.git`\
-    Clones a repository
+## ✅ Complete List of Git Commands (with Use Cases)
 
--   `git remote add origin <repository-url>`\
-    Connects local repo to GitHub
+| Command             | Syntax                                                 | Use Case / Purpose                             |
+| ------------------- | ------------------------------------------------------ | ---------------------------------------------- |
+| **git init**        | `git init`                                             | Initialize a new Git repository in a directory |
+| **git clone**       | `git clone <repo-url>`                                 | Copy a remote repository to local machine      |
+| **git status**      | `git status`                                           | Show working directory & staging status        |
+| **git add**         | `git add <file>`<br>`git add .`                        | Add files to staging area                      |
+| **git commit**      | `git commit -m "msg"`                                  | Save staged changes to local repo              |
+| **git log**         | `git log`                                              | View commit history                            |
+| **git show**        | `git show <commit-id>`                                 | Show details of a specific commit              |
+| **git push**        | `git push origin main`                                 | Upload local commits to remote                 |
+| **git pull**        | `git pull origin main`                                 | Fetch + merge remote changes                   |
+| **git fetch**       | `git fetch origin`                                     | Download remote changes (no merge)             |
+| **git branch**      | `git branch`<br>`git branch dev`                       | List or create branches                        |
+| **git checkout**    | `git checkout dev`                                     | Switch branches                                |
+| **git checkout -b** | `git checkout -b dev`                                  | Create & switch to new branch                  |
+| **git merge**       | `git merge dev`                                        | Merge another branch into current              |
+| **git rebase**      | `git rebase main`                                      | Reapply commits on another base                |
+| **git reset**       | `git reset --soft HEAD~1`<br>`git reset --hard HEAD~1` | Undo commits (soft/mixed/hard)                 |
+| **git revert**      | `git revert <commit-id>`                               | Undo commit safely (new commit)                |
+| **git restore**     | `git restore <file>`                                   | Discard file changes                           |
+| **git rm**          | `git rm <file>`                                        | Delete file from repo + working tree           |
+| **git diff**        | `git diff`                                             | Show code changes                              |
+| **git stash**       | `git stash`<br>`git stash pop`<br>`git stash list`<br>`git stash apply`<br>`git stash drop`                         | Temporarily save work                          |
+| **git clean**       | `git clean -f`                                         | Remove untracked files                         |
+| **git tag**         | `git tag v1.0`                                         | Create version tags                            |
+| **git remote**      | `git remote -v`                                        | View remote repositories                       |
+| **git remote add**  | `git remote add origin <url>`                          | Add remote repo                                |
+| **git cherry-pick** | `git cherry-pick <commit-id>`                          | Apply specific commit to branch                |
+| **git bisect**      | `git bisect start`                                     | Find bug using binary search                   |
+| **git reflog**      | `git reflog`                                           | Recover lost commits                           |
+| **git hooks**       | `.git/hooks/`                                          | Run scripts before/after Git actions           |
+| **git config**      | `git config --global user.name`                        | Set Git configuration                          |
+| **.gitignore**      | `.gitignore` file                                      | Ignore files from tracking                     |
 
--   `git status`\
-    Checks the repository status
+---
 
--   `git add .`\
-    Adds changes to staging
+## 🔥 Important Reset Types (Very Important)
 
--   `git commit -m "Your commit message"`\
-    Commits changes
+| Reset Type | Command                    | Effect                             |
+| ---------- | -------------------------- | ---------------------------------- |
+| Soft       | `git reset --soft HEAD~1`  | Undo commit, keep changes staged   |
+| Mixed      | `git reset --mixed HEAD~1` | Undo commit, keep changes unstaged |
+| Hard       | `git reset --hard HEAD~1`  | **Delete commit + code (danger)**  |
 
--   `git log`\
-    Shows commit history
+---
 
--   `git show <commit-id>`\
-    Views changes from specific commit
+## 🔁 Reset vs Revert (Interview Favorite)
 
--   `git push origin main`\
-    Pushes code to GitHub
+| Feature | reset           | revert           |
+| ------- | --------------- | ---------------- |
+| History | Changes history | Keeps history    |
+| Safety  | ❌ Dangerous     | ✅ Safe           |
+| Use     | Local mistakes  | Production fixes |
 
--   `git pull origin main`\
-    Pulls changes from GitHub
+---
 
--   `git fetch origin`\
-    Downloads remote changes (no merge)
+## 🧠 Advanced Commands (DevOps Reality)
 
--   `git branch`, `git branch <name>`, `git branch -m <new-name>`\
-    Manages branches
+| Command           | Why Used                |
+| ----------------- | ----------------------- |
+| `git cherry-pick` | Move specific fixes     |
+| `git rebase`      | Clean commit history    |
+| `git bisect`      | Find breaking commit    |
+| `git reflog`      | Recover deleted commits |
+| `git hooks`       | CI/CD automation        |
 
--   `git checkout <branch-name>`\
-    Switches to another branch
+---
 
--   `git merge <branch-name>`\
-    Merges branch into current
+## 📌 Real-World Workflow (Daily Use)
 
--   `git rm <filename>`\
-    Removes file
-
--   `git restore <filename>`\
-    Restores file to last commit
-
--   `git diff`, `git diff --cached`\
-    Shows differences
-
--   Stashing:
-
-    -   `git stash`
-    -   `git stash list`
-    -   `git stash apply`
-    -   `git stash pop`
-    -   `git stash drop`
-
--   `git rebase <branch>`\
-    Rebase commits
-
--   `git tag -a <version> -m "message"`\
-    Tags important commits
-
--   `git clean -n`, `git clean -f`\
-    Cleans untracked files
-
--   `.gitignore` file to exclude files
-
+```bash
+git status
+git add .
+git commit -m "feature added"
+git pull origin main
+git push origin main
+```
 ------------------------------------------------------------------------
 
 ## 🧱 Git Basics: Step-by-Step Guide
