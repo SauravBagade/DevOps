@@ -1,6 +1,7 @@
 ## Networking Fundamentals to Learn (Self-Study)
 
 Even before taking paid courses, you should master these basics:
+
 1 what is a computer metwork how to internet work
 
 2 OSI & TCP/IP models
