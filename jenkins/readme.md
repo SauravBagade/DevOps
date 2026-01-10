@@ -841,11 +841,16 @@ node {
 
 ## 🔹 Declarative vs Scripted
 
-| Declarative | Scripted     |
-| ----------- | ------------ |
-| Easy        | Complex      |
-| Structured  | Flexible     |
-| Recommended | Advanced use |
+| Feature        | Declarative    | Scripted      |
+| -------------- | -------------- | ------------- |
+| Syntax         | Structured     | Free-form     |
+| DSL            | Jenkins DSL    | Full Groovy   |
+| Difficulty     | Easy           | Advanced      |
+| Flexibility    | Medium         | High          |
+| Code length    | Short          | Long          |
+| Best for       | Standard CI/CD | Complex Logic |
+| Error handling | Built-in       | Manual        |
+| Learning curve | Low            | High          |
 
 ---
 
