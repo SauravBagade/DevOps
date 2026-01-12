@@ -54,7 +54,7 @@ pipeline {
                 sh '''
                     sudo systemctl start apache2
                     sudo rm -rf /var/www/html/*
-                    sudo cp -rf Student-registration/frontend/build/* /var/www/html/
+                    sudo cp -rf Student-registration/frontend/dist/* /var/www/html/
                 '''
             }
         }
