@@ -1,5 +1,13 @@
 # Minikube Installation (Ubuntu)
 
+Recommended specs:
+
+| Cluster Size     | EC2 Recommended   |
+| ---------------- | ----------------- |
+| 1 node (default) | t3.medium / 2 GB+ |
+| 3 nodes          | t3.large / 4 GB+  |
+| 5 nodes          | t3.xlarge / 8 GB+ |
+
 ## 1. Create Working Directory
 
 ```bash
