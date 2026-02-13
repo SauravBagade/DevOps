@@ -361,7 +361,52 @@ spec:
             image: busybox
             command: ["sh","-c","date; echo running cron"]
 ```
+or
 
+```yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: minute-backup
+  namespace: nginx
+spec:
+  schedule: "* * * * *"  # Every minute
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: minute-backup
+          labels:
+            app: minute-backup
+        spec:
+          containers:
+            - name: backup-container
+              image: busybox
+              command:
+                - sh
+                - -c
+                - >
+                  echo "Backup started" && \
+                  mkdir -p /backups && \
+                  mkdir -p /demo-data && \
+                  cp -r /demo-data /backups && \
+                  echo "Backup completed";
+              volumeMounts:
+                - name: data-volume
+                  mountPath: /demo-data
+                - name: backup-data
+                  mountPath: /backups
+          restartPolicy: OnFailure
+          volumes:
+            - name: data-volume
+              hostPath:
+                path: /demo-data
+                type: DirectoryOrCreate
+            - name: backup-data
+              hostPath:
+                path: /backups
+                type: DirectoryOrCreate
+```
 Apply:
 
 ```bash
