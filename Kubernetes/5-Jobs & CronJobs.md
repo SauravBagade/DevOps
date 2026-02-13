@@ -1,4 +1,4 @@
-# ⚙️ Kubernetes Jobs & CronJobs — Ultimate Complete Guide
+# ⚙️ Kubernetes Jobs & CronJobs — Complete Guide
 
 ---
 ## 📘 Overview
