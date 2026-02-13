@@ -187,8 +187,8 @@ spec:
     app: nginx
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
+      port: 80 #node port
+      targetPort: 80 #pod  port
   type: ClusterIP
 ```
 
