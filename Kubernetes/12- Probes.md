@@ -162,17 +162,31 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: web
+      app: probe
   template:
     metadata:
       labels:
-        app: web
+        app: probe
     spec:
       containers:
-      - name: app
+      - name: web
         image: nginx
         ports:
         - containerPort: 80
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 3
 
         startupProbe:
           httpGet:
@@ -181,25 +195,33 @@ spec:
           failureThreshold: 30
           periodSeconds: 5
 
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          periodSeconds: 5
-
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          periodSeconds: 10
-          failureThreshold: 3
 ```
+# service.yml
+
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: probe-svc
+spec:
+  selector:
+    app: probe
+  ports:
+  - port: 80
+    targetPort: 80
+  type: NodePort
+```
+
+kubectl apply -f deployment.yml
+kubectl apply -f service.yml
+
 
 ---
 
 # 🧪 Testing Probes (Interview Favorite)
 
 ```bash
+kubectl get pods -w
 kubectl describe pod <pod-name>
 ```
 
@@ -214,7 +236,9 @@ kubectl logs <pod-name>
 ```
 
 ```bash
-kubectl
+kubectl exec -it <pod-name> -- bash
+kubectl port-forward probe-svc/nginx-pod 8080:80
+
 
 ```
 ---
