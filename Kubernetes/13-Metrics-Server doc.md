@@ -34,8 +34,8 @@ Kubelet → Metrics Server → Kubernetes API → HPA / kubectl top
 4. Exposes via `metrics.k8s.io` API
 
 ---
-
-## 🚀 Install Metrics Server (kubeadm / bare metal / local cluster)
+## install k8s deferant deferant cmd of installtion depends on k8s type
+## 🚀 Install Metrics Server (kubeadm / kind)
 
 ### Step 1 — Apply Official Manifest
 
