@@ -130,8 +130,10 @@ spec:
         resources:
           requests:
             cpu: 100m
+            memory: 128mi
           limits:
             cpu: 200m
+            memory: 256mi
         ports:
         - containerPort: 80
 ```
@@ -177,21 +179,21 @@ spec:
     kind: Deployment
     name: cpu-demo
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 5
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 50
+        averageUtilization: 5
 ```
 
 ```bash
 kubectl apply -f hpa.yml
 kubectl get hpa
 ```
-
+kubectl port-forword service/cpu-demo-svc 80:80 --address=0.0.0.0
 ---
 
 ## 🧪 Generate Load
@@ -201,6 +203,7 @@ kubectl run -it load-generator --rm --image=busybox -- /bin/sh
 while true; do wget -q -O- http://cpu-demo-svc; done
 ```
 
+Next crete new terminal same instance login
 Watch scaling:
 
 ```bash
