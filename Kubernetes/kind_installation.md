@@ -232,6 +232,10 @@ kubectl proxy
 ```
 local machine any terminal like git terminal login instance ssh
 
+```
+ssh -i saurav.pem -L 8001:localhost:8001 ubuntu@52.55.100.87
+```
+
 Open browser:
 
 ```
