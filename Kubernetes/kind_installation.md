@@ -230,6 +230,7 @@ Start proxy:
 ```bash
 kubectl proxy
 ```
+local machine any terminal like git terminal login instance ssh
 
 Open browser:
 
