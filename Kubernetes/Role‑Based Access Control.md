@@ -264,6 +264,228 @@ Secure and production safe configuration
 
 ---
 
+# 👤 Human User Access (Certificate + kubeconfig)
+
+Give namespace access to a real user (e.g., intern) using client certificates.
+
+## Prerequisites
+
+* Role `pod-reader` already exists in namespace `apache`
+* You are on control-plane / admin kubeconfig
+
+---
+
+## 1️⃣ Generate Key & CSR
+
+```bash
+openssl genrsa -out user.key 2048
+openssl req -new -key user.key -out user.csr -subj "/CN=user/O=dev-team"
+```
+
+---
+
+## 2️⃣ Create Kubernetes CSR Object
+
+```bash
+cat user.csr | base64 | tr -d '
+' > user.txt
+CSR=$(cat user.txt)
+
+cat <<EOF > csr.yml
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: user-csr
+spec:
+  request: $CSR
+  signerName: kubernetes.io/kube-apiserver-client
+  usages:
+  - client auth
+  - digital signature
+  - key encipherment
+EOF
+
+kubectl apply -f csr.yml
+kubectl certificate approve user-csr
+```
+
+---
+
+## 3️⃣ Download Signed Certificate
+
+```bash
+kubectl get csr user-csr -o jsonpath='{.status.certificate}' | base64 -d > user.crt
+```
+
+Verify key & cert match (must be same hash):
+
+```bash
+openssl rsa -noout -modulus -in user.key | openssl md5
+openssl x509 -noout -modulus -in user.crt | openssl md5
+```
+
+---
+
+## 4️⃣ Bind Role to User
+
+```bash
+kubectl create rolebinding user-pod-read \
+  --role=pod-reader \
+  --user=user \
+  -n apache
+```
+
+---
+
+## 5️⃣ Get Cluster CA & Server
+
+```bash
+kubectl config view --raw -o jsonpath='{.clusters[0].cluster.certificate-authority-data}' | base64 -d > ca.crt
+kubectl config view --raw -o jsonpath='{.clusters[0].cluster.server}'
+```
+
+---
+
+## 6️⃣ Create kubeconfig for User
+
+```bash
+kubectl config set-cluster cluster \
+  --server=<API_SERVER> \
+  --certificate-authority=ca.crt \
+  --embed-certs=true \
+  --kubeconfig=user.kubeconfig
+
+kubectl config set-credentials user \
+  --client-certificate=user.crt \
+  --client-key=user.key \
+  --embed-certs=true \
+  --kubeconfig=user.kubeconfig
+
+kubectl config set-context user-context \
+  --cluster=cluster \
+  --namespace=apache \
+  --user=user \
+  --kubeconfig=user.kubeconfig
+
+kubectl config use-context user-context --kubeconfig=user.kubeconfig
+```
+
+---
+
+## 7️⃣ Test
+
+```bash
+kubectl --kubeconfig=user.kubeconfig get pods        # allowed
+kubectl --kubeconfig=user.kubeconfig get nodes       # forbidden
+kubectl --kubeconfig=user.kubeconfig get pods -A     # forbidden
+```
+
+---
+
+## 🧹 Revoke Access
+
+```bash
+kubectl delete rolebinding user-pod-read -n apache
+```
+OTHER DEVICE ACCESS USER ACCES
+# 👨‍💻 User Side — Using `user.kubeconfig`
+
+These are the steps your **intern / user performs after you send `user.kubeconfig`**
+
+---
+
+## 1️⃣ Save kubeconfig file
+
+### Linux / Mac
+
+```bash
+mkdir -p ~/.kube
+mv user.kubeconfig ~/.kube/
+```
+
+### Windows (PowerShell)
+
+```
+C:\Users\<username>\.kube\user.kubeconfig
+```
+
+---
+
+## 2️⃣ Test Direct Access (Temporary)
+
+```bash
+kubectl --kubeconfig=~/.kube/user.kubeconfig get pods
+```
+
+If working → authentication + RBAC correct ✅
+
+---
+
+## 3️⃣ Set kubeconfig as Default (Recommended)
+
+### Linux / Mac
+
+```bash
+export KUBECONFIG=~/.kube/user.kubeconfig
+kubectl config get-contexts
+kubectl config use-context user-context
+```
+
+### Windows PowerShell
+
+```powershell
+$env:KUBECONFIG="C:\Users\<username>\.kube\user.kubeconfig"
+kubectl config get-contexts
+kubectl config use-context user-context
+```
+
+Now user can simply run:
+
+```bash
+kubectl get pods
+```
+
+---
+
+## 4️⃣ Verify Allowed Actions
+
+### Allowed ✅
+
+```bash
+kubectl get pods
+kubectl describe pod <pod-name>
+kubectl logs <pod-name>
+```
+
+### Forbidden ❌
+
+```bash
+kubectl get nodes
+kubectl get pods -A
+kubectl delete pod <pod-name>
+kubectl create deployment nginx --image=nginx
+```
+
+---
+
+## 5️⃣ Self Permission Check
+
+User can verify RBAC:
+
+```bash
+kubectl auth can-i get pods
+kubectl auth can-i delete pods
+kubectl auth can-i get nodes
+```
+
+---
+
+# 🔐 Result
+
+User can safely work only inside assigned namespace without breaking cluster.
+
+---
+
 # 🌍 Cluster Level RBAC (ClusterRole + ClusterRoleBinding)
 
 ## 📘 Overview
