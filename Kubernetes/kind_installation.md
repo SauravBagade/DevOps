@@ -164,7 +164,7 @@ kubectl cluster-info
 
 ---
 
-## **7. Deploy Kubernetes Dashboard**
+## **7. Deploy Kubernetes Dashboard use to Monitoring and logging using kubernetes dashboard**  
 
 Apply dashboard manifest:
 
@@ -231,10 +231,11 @@ Start proxy:
 kubectl proxy
 ```
 or  currnt ip not localhost
-``
+```bash
 kubectl proxy --port=8001 --address=0.0.0.0 -accept-hosts='.*'
-``
-local machine any terminal like git terminal login instance ssh
+```
+---
+or local machine any terminal like git terminal login instance ssh
 
 ```
 ssh -i saurav.pem -L 8001:localhost:8001 ubuntu@52.55.100.87
