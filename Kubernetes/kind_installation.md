@@ -230,6 +230,10 @@ Start proxy:
 ```bash
 kubectl proxy
 ```
+or  currnt ip not localhost
+``
+kubectl proxy --port=8001 --address=0.0.0.0 -accept-hosts='.*'
+``
 local machine any terminal like git terminal login instance ssh
 
 ```
