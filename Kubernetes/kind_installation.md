@@ -230,12 +230,12 @@ Start proxy:
 ```bash
 kubectl proxy
 ```
-or  currnt ip not localhost
+not use u want to run instance ip to use this but token not work inside so follow next step
 ```bash
 kubectl proxy --port=8001 --address=0.0.0.0 -accept-hosts='.*'
 ```
 ---
-or local machine any terminal like git terminal login instance ssh
+local machine any terminal like git terminal login instance ssh
 
 ```
 ssh -i saurav.pem -L 8001:localhost:8001 ubuntu@52.55.100.87
