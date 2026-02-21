@@ -316,174 +316,6 @@ exmaple
 
 ---
 
-# 🗂️ Linux Directory Structure Overview
-
-Linux uses a **hierarchical directory structure** (tree-like) with `/` (root) at the top.  
-Every file and directory starts from the **root directory**.
-
-# View file structure
-
-```bash
-apt install tree
-````
----
-
-## **1. / (Root)**
-- **Description**: The top-level directory in Linux.
-- **Contains**: All other directories and system files.
-- **Example**:
-```bash
-ls /
-````
-
-* Output: `bin boot dev etc home lib media mnt opt proc root run sbin srv tmp usr var`
-
----
-
-## **2. /bin** – Essential User Binaries
-
-* Contains **essential commands** used by all users.
-* Examples: `ls`, `cp`, `mv`, `cat`, `bash`
-
----
-
-## **3. /sbin** – System Binaries
-
-* Contains **administrative commands** used by the root user.
-* Examples: `ifconfig`, `iptables`, `shutdown`, `fdisk`
-
----
-
-## **4. /etc** – Configuration Files
-
-* System-wide **configuration files**.
-* Examples: `passwd`, `hosts`, `fstab`, `ssh/sshd_config`
-* Typically **not executable**.
-
----
-
-## **5. /home** – User Home Directories
-
-* Contains **personal directories** for users.
-* Example:
-
-```bash
-/home/alice
-/home/bob
-```
-
----
-
-## **6. /root** – Root User Home
-
-* **Home directory** of the `root` user.
-* Not to be confused with `/` (root of filesystem).
-
----
-
-## **7. /lib & /lib64** – Shared Libraries
-
-* Contains **shared libraries** required by system programs.
-* Examples: `/lib/libc.so.6`, `/lib64/ld-linux-x86-64.so.2`
-
----
-
-## **8. /usr** – User Programs & Data
-
-* Contains **installed applications and files** for users.
-* Subdirectories:
-
-  * `/usr/bin` → Non-essential user commands
-  * `/usr/sbin` → Non-essential system commands
-  * `/usr/lib` → Libraries
-  * `/usr/share` → Shared data (docs, man pages, icons)
-
----
-
-## **9. /var** – Variable Data
-
-* Contains **files that change frequently**:
-
-  * Logs → `/var/log/`
-  * Spools → `/var/spool/`
-  * Databases → `/var/lib/`
-* Example:
-
-```bash
-tail -f /var/log/syslog
-```
-
----
-
-## **10. /tmp** – Temporary Files
-
-* Stores **temporary files** created by users or applications.
-* Often cleared on reboot.
-
----
-
-## **11. /boot** – Boot Files
-
-* Contains **kernel and bootloader files**.
-* Examples: `vmlinuz`, `initrd.img`, `grub/`
-
----
-
-## **12. /dev** – Device Files
-
-* Contains **device nodes** representing hardware.
-* Examples: `/dev/sda`, `/dev/tty`, `/dev/null`
-
----
-
-## **13. /proc** – Virtual Filesystem for Processes
-
-* Provides **runtime system information**.
-* Examples: `/proc/cpuinfo`, `/proc/meminfo`, `/proc/<pid>/`
-
----
-
-## **14. /sys** – Kernel Information
-
-* Virtual filesystem exposing **kernel-related info**.
-* Example:
-
-```bash
-ls /sys/class/net
-```
-
-* Shows network interfaces.
-
----
-
-## **15. /media & /mnt** – Mount Points
-
-* `/media` → Removable media (USB, CD-ROM)
-* `/mnt` → Temporary mount points for manually mounted devices
-
----
-
-## **16. /opt** – Optional Software
-
-* For **third-party applications**.
-* Examples: `/opt/google`, `/opt/eclipse`
-
----
-
-## **17. /srv** – Service Data
-
-* Stores **data for services** like web or FTP.
-* Example: `/srv/www`, `/srv/ftp`
-
----
-
-## **18. /run** – Runtime Data
-
-* Stores **temporary runtime files** (PIDs, sockets).
-* Cleared on reboot.
-
----
-
 ## **Quick Directory Cheat Sheet**
 
 | Directory         | Purpose                                  |
@@ -509,3 +341,138 @@ ls /sys/class/net
 | `/run`            | Runtime files                            |
 
 ---
+
+## File & Directory (Advanced)
+
+| Command       | Description                          | Example                                 |
+| ------------- | ------------------------------------ | --------------------------------------- |
+| `ls -lh`      | Show files with human readable sizes | `ls -lh`                                |
+| `ls -R`       | List files recursively               | `ls -R /etc`                            |
+| `readlink -f` | Show real absolute path              | `readlink -f file.txt`                  |
+| `install`     | Copy file and set permissions        | `install -m 755 app /usr/local/bin/app` |
+| `watch`       | Run command repeatedly               | `watch -n 2 ls`                         |
+
+---
+
+## Logs & File Viewing
+
+| Command   | Description               | Example                             |
+| --------- | ------------------------- | ----------------------------------- |
+| `tail -f` | Monitor live file updates | `tail -f /var/log/syslog`           |
+| `tail -F` | Follow log after rotation | `tail -F /var/log/nginx/access.log` |
+| `less +F` | Live view scrollable logs | `less +F /var/log/syslog`           |
+| `strings` | Read binary file text     | `strings binaryfile`                |
+| `hexdump` | View file in hex format   | `hexdump -C file.bin`               |
+
+---
+
+## Permissions (Advanced)
+
+| Command   | Description            | Example                               |
+| --------- | ---------------------- | ------------------------------------- |
+| `getfacl` | View ACL permissions   | `getfacl project/`                    |
+| `setfacl` | Set ACL permissions    | `setfacl -m u:john:rwx project/`      |
+| `getcap`  | Show file capabilities | `getcap /usr/bin/ping`                |
+| `setcap`  | Set binary capability  | `setcap cap_net_raw+ep /usr/bin/ping` |
+
+---
+
+## Text Processing
+
+| Command   | Description              | Example                            |
+| --------- | ------------------------ | ---------------------------------- |
+| `grep -r` | Recursive search text    | `grep -r "error" /var/log`         |
+| `grep -v` | Exclude matching lines   | `grep -v root /etc/passwd`         |
+| `xargs`   | Pass output as argument  | `find . -name "*.log" \| xargs rm` |
+| `tr`      | Replace characters       | `cat file \| tr a-z A-Z`           |
+| `paste`   | Merge files line by line | `paste file1 file2`                |
+| `column`  | Format output in table   | `cat file \| column -t`            |
+
+---
+
+## User & Access
+
+| Command   | Description              | Example              |
+| --------- | ------------------------ | -------------------- |
+| `visudo`  | Edit sudoers safely      | `sudo visudo`        |
+| `sudo -l` | Check sudo permissions   | `sudo -l`            |
+| `chage`   | Password expiry settings | `sudo chage -l user` |
+| `lastlog` | Last login details       | `lastlog`            |
+| `faillog` | Failed login attempts    | `faillog`            |
+
+---
+
+## Process Management
+
+| Command  | Description            | Example        |
+| -------- | ---------------------- | -------------- |
+| `pstree` | Show process tree      | `pstree`       |
+| `pkill`  | Kill process by name   | `pkill nginx`  |
+| `time`   | Measure execution time | `time sleep 2` |
+| `uptime` | Show load average      | `uptime`       |
+| `top -H` | Show threads           | `top -H`       |
+
+---
+
+## Disk & Storage
+
+| Command     | Description              | Example                    |
+| ----------- | ------------------------ | -------------------------- |
+| `findmnt`   | Show mounted filesystems | `findmnt`                  |
+| `lsblk -f`  | Show filesystem type     | `lsblk -f`                 |
+| `fuser`     | Show process using file  | `fuser -v /var/log/syslog` |
+| `lsof`      | List open files          | `lsof -i :80`              |
+| `resize2fs` | Resize filesystem        | `resize2fs /dev/sda1`      |
+
+---
+
+## Networking
+
+| Command       | Description           | Example                            |
+| ------------- | --------------------- | ---------------------------------- |
+| `hostnamectl` | Change hostname       | `hostnamectl set-hostname server1` |
+| `ip link`     | Show interfaces       | `ip link`                          |
+| `arp`         | View ARP table        | `arp -a`                           |
+| `tcpdump`     | Capture packets       | `tcpdump -i eth0 port 80`          |
+| `curl -I`     | Show headers          | `curl -I google.com`               |
+| `route -n`    | Routing table numeric | `route -n`                         |
+
+---
+
+## systemd & Logs
+
+| Command                   | Description            | Example                   |
+| ------------------------- | ---------------------- | ------------------------- |
+| `systemctl daemon-reload` | Reload service configs | `systemctl daemon-reload` |
+| `systemctl is-active`     | Check service running  | `systemctl is-active ssh` |
+| `journalctl -xe`          | Debug errors           | `journalctl -xe`          |
+| `journalctl -f`           | Live logs              | `journalctl -f`           |
+
+---
+
+## Scheduling
+
+| Command      | Description      | Example                     |
+| ------------ | ---------------- | --------------------------- |
+| `crontab -l` | View cron jobs   | `crontab -l`                |
+| `crontab -r` | Remove cron jobs | `crontab -r`                |
+| `at`         | One time job     | `echo "backup" \| at 10:00` |
+| `atq`        | List at jobs     | `atq`                       |
+| `atrm`       | Remove at job    | `atrm 2`                    |
+
+---
+
+## System Monitoring
+
+| Command     | Description            | Example      |
+| ----------- | ---------------------- | ------------ |
+| `vmstat`    | CPU & memory stats     | `vmstat 1`   |
+| `iostat`    | Disk IO stats          | `iostat`     |
+| `sar`       | Historical performance | `sar -u 1 5` |
+| `dmesg -T`  | Kernel logs readable   | `dmesg -T`   |
+| `ulimit -a` | Resource limits        | `ulimit -a`  |
+
+---
+
+
+
