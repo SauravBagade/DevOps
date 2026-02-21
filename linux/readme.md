@@ -1,6 +1,6 @@
 # Linux Documentation – Index Page 
 ---
-[1.Linux Introduction Basic](./1-linux-introduction-basic.md) 
+[1 Linux Documentation 1-10](./1-Linux-Documentation-1-10.md) 
 
 1.1 What is Linux  
 1.2 Why Linux is Used  
@@ -12,7 +12,7 @@
 
 ---
 
-[2. Linux History & Evolution](./2-Linux-History-&-Evolution.md)
+## 2. Linux History & Evolution
 
 2.1 History of Unix  
 2.2 Linus Torvalds  
@@ -21,7 +21,7 @@
 
 ---
 
-[3.Linux Architecture](./3-Linux-Architecture.md)
+## 3.Linux Architecture
 
 3.1 Hardware Layer  
 3.2 Kernel  
@@ -33,7 +33,7 @@
 
 ---
 
-[4.Linux Distributions](./4-Linux-Distributions.md)
+## 4.Linux Distributions
 
 4.1 Debian Family
 
@@ -55,7 +55,7 @@
 
 ---
 
-[5.Linux File System Hierarchy (FHS)](./5-Linux-File-System-Hierarchy-(FHS).md)
+## 5.Linux File System Hierarchy (FHS)
 
 /
 ├── bin  
@@ -196,6 +196,7 @@
 ---
 
 ## 11. File Permissions & Ownership
+[2 Linux Documentation 11-20](./2-Linux-Documentation-11-20.md) 
 
 11.1 Permission Model  
 11.2 Read / Write / Execute  
@@ -410,6 +411,7 @@
 ---
 
 ## 21. Environment Variables
+[3 Linux Documentation 21-33](./3-Linux-Documentation-21-33.md) 
 
 21.1 Local vs Global Variables  
 21.2 `env`  
