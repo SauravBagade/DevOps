@@ -1,6 +1,8 @@
 # Linux Documentation – Index Page 
 ---
-[1 Linux Documentation 1-10](./1-Linux-Documentation-1-10.md) 
+[1 Linux Documentation 1-10](./1-Linux-Documentation-1-20.md) 
+
+# 1. Linux Introduction Basic
 
 1.1 What is Linux  
 1.2 Why Linux is Used  
