@@ -1,6 +1,6 @@
 # Linux Documentation – Index Page 
 ---
-[1 Linux Documentation 1-10](./1-Linux-Documentation-1-20.md) 
+[1 Linux Documentation 1-10](./1-Linux-Documentation-1-10.md) 
 
 # 1. Linux Introduction Basic
 
