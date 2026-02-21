@@ -1,4 +1,4 @@
-#  Linux Documentation – 
+#  Linux Documentation 1-10
 ---
 # 1. Linux Introduction Basic
 
