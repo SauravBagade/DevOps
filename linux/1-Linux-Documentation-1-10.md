@@ -322,6 +322,28 @@ Linux is:
 # 3. Linux Architecture
 
 ---
+```
++---------------------------+
+|       User Applications   |
+| (Chrome, VS Code, Docker) |
++---------------------------+
+|           Shell           |
+| (bash, sh, zsh)           |
++---------------------------+
+|        System Libraries   |
+| (glibc, libc, etc.)       |
++---------------------------+
+|           Kernel          |
+|  Process | Memory | FS    |
+|  Drivers | Network        |
++---------------------------+
+|          Hardware         |
+| CPU | RAM | Disk | NIC    |
++---------------------------+
+```
+**Linux Architecture – Layered Structure**
+
+---
 
 ## 3.1 Hardware Layer
 
