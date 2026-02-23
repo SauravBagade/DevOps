@@ -1206,3 +1206,466 @@ nice -n 15 tar -czf backup.tar.gz /home/user/
 | `renice` | Change priority of running process  |
 
 ---
+# 💾 Disk & Storage Management in Ubuntu (Complete Industry-Level Guide)
+
+---
+
+# 1️⃣ Storage Fundamentals
+
+## 1.1 What is Disk Storage?
+
+Storage devices are physical or virtual components that store data permanently.
+
+### Types of Storage Devices
+
+![Image](https://www.tpstech.in/cdn/shop/products/ToshibaN3004TBNAS3.5-inchInternalHardDiskDrive-FromTPSTech-06.jpg?v=1633942947\&width=1445)
+
+![Image](https://images.openai.com/static-rsc-3/ddYbtiiyojDmEiTThfB7e7gLqCZOg8SyvC5qbnRTSuW-S6wW4rdV5-VEgS3hPfkCNPtbCoAvW_TqVsCr5uVmmbbKYIogkR344U42ShdMlRg?purpose=fullsize\&v=1)
+
+![Image](https://m.media-amazon.com/images/I/91NqHZmJPsL.jpg)
+
+![Image](https://m.media-amazon.com/images/I/51qcc-MJ1nL.jpg)
+
+| Type     | Description   | Speed     | Usage              |
+| -------- | ------------- | --------- | ------------------ |
+| HDD      | Magnetic disk | Slow      | Backup, archival   |
+| SSD      | Flash storage | Fast      | OS, Applications   |
+| NVMe     | PCIe SSD      | Very Fast | Production servers |
+| External | USB storage   | Depends   | Portable storage   |
+
+---
+
+# 2️⃣ Understanding Linux Storage Architecture
+
+## 2.1 Storage Stack
+
+```
+Physical Disk
+   ↓
+Partition
+   ↓
+Filesystem
+   ↓
+Mount Point
+   ↓
+Directory Structure
+```
+
+---
+
+# 3️⃣ Important Disk Commands (Must Know)
+
+| Command   | Purpose                     |
+| --------- | --------------------------- |
+| `lsblk`   | List block devices          |
+| `fdisk`   | Manage partitions           |
+| `parted`  | Advanced partitioning       |
+| `df`      | Disk usage                  |
+| `du`      | Directory usage             |
+| `mount`   | Mount filesystem            |
+| `umount`  | Unmount filesystem          |
+| `blkid`   | Show UUID                   |
+| `mkfs`    | Create filesystem           |
+| `fsck`    | Filesystem check            |
+| `tune2fs` | Modify ext filesystem       |
+| `wipefs`  | Remove filesystem signature |
+
+---
+
+# 4️⃣ Listing Disks & Partitions
+
+## 4.1 lsblk (Industry Standard)
+
+```bash
+lsblk
+lsblk -f
+lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT
+```
+
+Output Example:
+
+```
+sda      100G
+├─sda1    1G   ext4   /boot
+├─sda2   50G   ext4   /
+└─sda3   49G   ext4   /data
+```
+
+---
+
+## 4.2 Check Disk Usage
+
+```bash
+df -h
+df -Th
+```
+
+### Difference:
+
+| Command | Usage            |
+| ------- | ---------------- |
+| df      | Filesystem usage |
+| du      | Directory usage  |
+
+```bash
+du -sh /var/log
+du -h --max-depth=1 /
+```
+
+---
+
+# 5️⃣ Disk Partitioning (Beginner → Advanced)
+
+## 5.1 Using fdisk (MBR Based)
+
+```bash
+sudo fdisk /dev/sdb
+```
+
+Inside fdisk:
+
+| Option | Action           |
+| ------ | ---------------- |
+| n      | New partition    |
+| d      | Delete partition |
+| p      | Print            |
+| w      | Write changes    |
+| q      | Quit             |
+
+---
+
+## 5.2 Using parted (GPT Recommended)
+
+```bash
+sudo parted /dev/sdb
+```
+
+Commands inside:
+
+```
+mklabel gpt
+mkpart primary ext4 1MiB 100%
+print
+quit
+```
+
+---
+
+# 6️⃣ Creating Filesystem
+
+## 6.1 ext4 (Most Common in Ubuntu)
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
+```
+
+## 6.2 XFS (Enterprise)
+
+```bash
+sudo mkfs.xfs /dev/sdb1
+```
+
+---
+
+# 7️⃣ Mounting Filesystem
+
+## 7.1 Temporary Mount
+
+```bash
+sudo mkdir /data
+sudo mount /dev/sdb1 /data
+```
+
+Verify:
+
+```bash
+df -h
+```
+
+---
+
+## 7.2 Permanent Mount (Production Level)
+
+Get UUID:
+
+```bash
+sudo blkid
+```
+
+Edit:
+
+```bash
+sudo nano /etc/fstab
+```
+
+Add:
+
+```
+UUID=xxxx-xxxx  /data  ext4  defaults  0  2
+```
+
+Test:
+
+```bash
+sudo mount -a
+```
+
+---
+
+# 8️⃣ Filesystem Types in Ubuntu
+
+![Image](https://opensource.com/sites/default/files/images/life-uploads/inodesanddataallocation-01_0.png)
+
+![Image](https://images.wondershare.com/recoverit/article/xfs-file-system-structure.jpg)
+
+![Image](https://www.researchgate.net/publication/316994448/figure/fig1/AS%3A669542586003474%401536642800213/Figure-23-The-NTFS-file-Structure.png)
+
+![Image](https://ntfs.com/images/screenshots/NTFS-MFT-structure.gif)
+
+| Filesystem | Use Case              |
+| ---------- | --------------------- |
+| ext4       | Default Ubuntu        |
+| XFS        | Large storage servers |
+| NTFS       | Windows compatibility |
+| swap       | Virtual memory        |
+
+---
+
+# 9️⃣ Swap Management
+
+Check swap:
+
+```bash
+swapon --show
+free -h
+```
+
+Create swap file:
+
+```bash
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+```
+
+Add to fstab:
+
+```
+/swapfile none swap sw 0 0
+```
+
+---
+
+# 🔟 LVM (Logical Volume Manager) – Advanced
+
+## Why LVM?
+
+* Resize storage online
+* Flexible volume management
+* Enterprise usage
+
+---
+
+## LVM Architecture
+
+![Image](https://miro.medium.com/v2/resize%3Afit%3A1400/1%2Ag0H1kb7u6ZAQ-vObWEY1EA.png)
+
+![Image](https://access.redhat.com/webassets/avalon/d/Red_Hat_Enterprise_Linux-7-Logical_Volume_Manager_Administration-en-US/images/aa96fde158c47229d69b70d319d41677/basic-lvm-volume.png)
+
+![Image](https://access.redhat.com/webassets/avalon/d/Red_Hat_Enterprise_Linux-9-Configuring_and_managing_logical_volumes-en-US/images/31bd96635c4120abe3e771a423f61cd6/basic-lvm-volume-components.png)
+
+![Image](https://www.redhat.com/rhdc/managed-files/sysadmin/2020-03/basic-lvm-volume_0.png)
+
+### Layers:
+
+| Layer | Meaning         |
+| ----- | --------------- |
+| PV    | Physical Volume |
+| VG    | Volume Group    |
+| LV    | Logical Volume  |
+
+---
+
+## Create LVM Step-by-Step
+
+### Step 1: Create PV
+
+```bash
+sudo pvcreate /dev/sdb1
+```
+
+### Step 2: Create VG
+
+```bash
+sudo vgcreate data_vg /dev/sdb1
+```
+
+### Step 3: Create LV
+
+```bash
+sudo lvcreate -L 10G -n data_lv data_vg
+```
+
+### Step 4: Create Filesystem
+
+```bash
+sudo mkfs.ext4 /dev/data_vg/data_lv
+```
+
+### Step 5: Mount
+
+```bash
+sudo mount /dev/data_vg/data_lv /data
+```
+
+---
+
+# 1️⃣1️⃣ Resize Disk (Production Scenario)
+
+## Extend Logical Volume
+
+```bash
+sudo lvextend -L +5G /dev/data_vg/data_lv
+sudo resize2fs /dev/data_vg/data_lv
+```
+
+---
+
+# 1️⃣2️⃣ Disk Troubleshooting
+
+| Issue              | Command         |
+| ------------------ | --------------- |
+| Disk full          | `df -h`         |
+| Large files        | `du -sh *`      |
+| Filesystem error   | `fsck`          |
+| Corrupt superblock | `fsck -b 32768` |
+
+---
+
+# 1️⃣3️⃣ Real Production Use Case (Step-by-Step)
+
+## 🎯 Scenario:
+
+Add new 100GB disk to Ubuntu server for application data.
+
+---
+
+### Step 1: Verify Disk
+
+```bash
+lsblk
+```
+
+---
+
+### Step 2: Partition Disk
+
+```bash
+sudo parted /dev/sdb
+mklabel gpt
+mkpart primary ext4 0% 100%
+quit
+```
+
+---
+
+### Step 3: Create Filesystem
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
+```
+
+---
+
+### Step 4: Create Mount Directory
+
+```bash
+sudo mkdir /appdata
+```
+
+---
+
+### Step 5: Mount Disk
+
+```bash
+sudo mount /dev/sdb1 /appdata
+```
+
+---
+
+### Step 6: Permanent Mount
+
+```bash
+sudo blkid
+sudo nano /etc/fstab
+```
+
+Add:
+
+```
+UUID=xxxx /appdata ext4 defaults 0 2
+```
+
+---
+
+### Step 7: Set Ownership (Production Important)
+
+```bash
+sudo chown appuser:appgroup /appdata
+sudo chmod 755 /appdata
+```
+
+---
+
+# 1️⃣4️⃣ Interview Questions
+
+### Beginner
+
+* What is difference between df and du?
+* What is mount point?
+* What is swap?
+
+### Intermediate
+
+* Difference between MBR & GPT?
+* What is UUID?
+* How to extend LVM?
+
+### Advanced
+
+* How to recover corrupted filesystem?
+* How to troubleshoot disk full in production?
+* How to migrate disk without downtime?
+
+---
+
+# 1️⃣5️⃣ Production Best Practices
+
+✅ Always use UUID in fstab
+✅ Prefer GPT over MBR
+✅ Use LVM in production
+✅ Monitor disk using `df -h`
+✅ Keep separate partitions for:
+
+* `/`
+* `/var`
+* `/home`
+* `/data`
+
+---
+
+# 1️⃣6️⃣ Quick Revision Sheet
+
+```bash
+lsblk
+df -h
+du -sh *
+sudo fdisk /dev/sdb
+sudo mkfs.ext4 /dev/sdb1
+sudo mount /dev/sdb1 /data
+sudo blkid
+sudo nano /etc/fstab
+```
+
+---
