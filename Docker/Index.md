@@ -1,4 +1,4 @@
-# 📑 Docker Documentation – Complete Industry-Level Index
+# 📑 Docker Documentation – Index
 
 ---
 # 🐳 Docker Documentation
