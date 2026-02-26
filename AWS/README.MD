@@ -14,6 +14,7 @@
 | **CodeGuru**     | Automated code review & performance analysis         |
 | **Device Farm**  | Mobile device testing                                |
 
+> Github actions ,Jenkins
 ---
 
 ## **2. Infrastructure as Code (IaC)**
@@ -22,7 +23,6 @@
 | ------------------------------- | ----------------------------------- |
 | **CloudFormation**              | IaC for full AWS stack              |
 | **CDK (Cloud Development Kit)** | IaC using Typescript/Python/Go/Java |
-| **OpsWorks (Chef/Puppet)**      | Config management                   |
 | **EC2 Image Builder**           | Golden AMI creation                 |
 
 > Terraform also commonly used (not AWS service but major DevOps tool)
@@ -36,7 +36,6 @@
 | **EC2**               | VMs for workloads              |
 | **Lambda**            | Serverless compute             |
 | **Elastic Beanstalk** | Managed app platform           |
-| **Lightsail**         | VPS for small/simple workloads |
 
 ---
 
@@ -81,13 +80,13 @@
 
 ## **7. Storage & Artifacts**
 
-| Service     | Purpose                             |
-| ----------- | ----------------------------------- |
-| **S3**      | Backup + Artifacts + Static hosting |
-| **EFS**     | Shared POSIX file storage           |
-| **FSx**     | Windows/Lustre file systems         |
-| **Glacier** | Long-term archival                  |
-
+| Service                               | Purpose                                                    | DevOps Use Case                                                     |
+| ------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------- |
+| **Amazon S3**                         | Object storage                                             | Artifacts storage, backups, Terraform state, static website hosting |
+| **Amazon EBS**                        | Block storage for EC2                                      | Persistent storage for EC2, databases, CI build servers             |
+| **Amazon EFS**                        | Managed NFS file system                                    | Shared storage across multiple EC2 instances                        |
+| **Amazon FSx**                        | Fully managed file systems (Windows/Lustre/NetApp/OpenZFS) | Enterprise apps, HPC workloads                                      |
+                           
 ---
 
 ## **8. Security, Compliance, IAM**
@@ -105,19 +104,8 @@
 
 ---
 
-## **9. Automation + Ops Tools**
 
-| Service                   | Purpose                               |
-| ------------------------- | ------------------------------------- |
-| **Systems Manager (SSM)** | Patching, automation, remote commands |
-| **EventBridge**           | Event system for automation           |
-| **Step Functions**        | Workflow orchestration                |
-| **AppConfig**             | Feature flags + config rollouts       |
-| **Service Catalog**       | Standardized infra provisioning       |
-
----
-
-## **10. Databases used in DevOps pipelines**
+## **9. Databases used in DevOps pipelines**
 
 | Service                           | Purpose              |
 | --------------------------------- | -------------------- |
