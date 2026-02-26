@@ -3641,5 +3641,588 @@ Advanced Topics include:
 Master these → You are no longer beginner DevOps.
 
 ---
+# 1️⃣3️⃣ Monitoring & Logs (Observability in GitHub Actions)
 
+## 🔍 Why Monitoring Matters?
 
+![Image](https://docs.github.com/assets/cb-40738/images/help/actions/download-logs-drop-down.png)
+
+![Image](https://raw.githubusercontent.com/laurent22/joplin/dev/Assets/WebsiteAssets/images/news/20230116-ga-raw-log-colored.png)
+
+![Image](https://docs.github.com/assets/cb-63715/images/help/actions/workflow-graph.png)
+
+![Image](https://user-images.githubusercontent.com/55514721/101413954-1007d580-389a-11eb-8b15-4f2a45ad9ddb.png)
+
+In **GitHub Actions**, monitoring helps you:
+
+* Detect failures quickly
+* Debug pipeline issues
+* Measure job performance
+* Audit deployments
+
+Without proper log understanding → CI/CD troubleshooting becomes difficult.
+
+---
+
+# 🔹 13.1 Workflow Run View
+
+Inside **GitHub**:
+
+```
+Repository → Actions → Select Workflow Run
+```
+
+You can see:
+
+* Workflow name
+* Trigger event
+* Branch
+* Commit SHA
+* Job graph
+* Duration
+* Status
+
+---
+
+# 🔹 13.2 Job Logs
+
+Click on any job → View detailed logs.
+
+Each step shows:
+
+* Command executed
+* Output
+* Errors
+* Execution time
+
+Example log output:
+
+```text
+Run npm install
+added 240 packages in 5s
+```
+
+If error:
+
+```text
+Error: Process completed with exit code 1
+```
+
+Exit code determines success/failure.
+
+---
+
+# 🔹 13.3 Step-Level Logs
+
+Each step:
+
+* Collapsible
+* Timestamped
+* Color-coded
+* Shows environment info
+
+Important for debugging:
+
+```text
+##[error]
+##[warning]
+```
+
+---
+
+# 🔹 13.4 Re-run Jobs
+
+Options available:
+
+* 🔁 Re-run all jobs
+* 🔁 Re-run failed jobs only
+
+Useful when:
+
+* Temporary network issue
+* Dependency registry issue
+* External API timeout
+
+---
+
+# 🔹 13.5 Enable Debug Logging
+
+To enable step debug logs:
+
+Go to repository secrets → Add:
+
+```text
+ACTIONS_STEP_DEBUG = true
+```
+
+Or enable from UI re-run options.
+
+Now logs show:
+
+* Internal execution details
+* Action metadata
+* Additional debug output
+
+---
+
+# 🔹 13.6 Download Logs
+
+From workflow page:
+
+* Click “Download logs”
+
+You get a `.zip` file containing:
+
+* Job logs
+* Step logs
+* Metadata
+
+Useful for:
+
+* Sharing with team
+* Audit purposes
+* Compliance documentation
+
+---
+
+# 🔹 13.7 Workflow Graph Visualization
+
+GitHub provides visual dependency graph:
+
+```text
+Build → Test → Deploy
+```
+
+Shows:
+
+* Parallel jobs
+* Dependencies (`needs`)
+* Failed node
+
+Helps understand complex pipelines.
+
+---
+
+# 🔹 13.8 Common Debugging Scenarios
+
+## 🟢 Docker Build Fails
+
+Check:
+
+* Dockerfile path
+* Build context
+* Login step
+
+---
+
+## 🟢 Terraform Fails
+
+Check:
+
+* AWS authentication
+* Backend state lock
+* Plan output
+
+---
+
+## 🟢 Kubernetes Deployment Fails
+
+Check:
+
+* Kubeconfig setup
+* Image tag mismatch
+* Pod logs using:
+
+  ```
+  kubectl logs
+  ```
+
+---
+
+# 🔹 13.9 Monitoring Deployment Health
+
+After deployment:
+
+Add health check step:
+
+```yaml
+- name: Health Check
+  run: curl -f https://myapp.com || exit 1
+```
+
+Ensures:
+
+* Deployment successful
+* Service reachable
+
+---
+
+# 🔹 13.10 Audit Logs (Enterprise)
+
+For organizations:
+
+```
+Org Settings → Audit Log
+```
+
+Tracks:
+
+* Workflow changes
+* Secret modifications
+* Permission updates
+* Deployment approvals
+
+Important for:
+
+* Compliance
+* Enterprise governance
+
+---
+
+# 🔹 13.11 Monitoring Best Practices
+
+✅ Keep logs clean
+✅ Avoid printing secrets
+✅ Add meaningful step names
+✅ Use health checks
+✅ Separate CI & CD logs
+✅ Keep pipeline stages clear
+✅ Use environment approvals
+
+---
+
+# 🔥 Real Production Monitoring Pattern
+
+```text
+Push Code
+   ↓
+CI Run
+   ↓
+Logs Verified
+   ↓
+Artifact Stored
+   ↓
+CD Run
+   ↓
+Deployment Logs
+   ↓
+Health Check
+   ↓
+Success Notification
+```
+
+---
+
+# 🎯 Summary
+
+Monitoring in GitHub Actions includes:
+
+* Workflow logs
+* Step logs
+* Re-run capability
+* Debug mode
+* Graph visualization
+* Audit logs
+* Health checks
+
+If you master monitoring → You can troubleshoot any CI/CD issue.
+
+---
+# 1️⃣4️⃣ GitHub CLI & API (Automation Beyond YAML)
+
+## 🛠️ Why Use CLI & API?
+
+![Image](https://media2.dev.to/dynamic/image/width%3D800%2Cheight%3D%2Cfit%3Dscale-down%2Cgravity%3Dauto%2Cformat%3Dauto/https%3A%2F%2Fgithub.com%2FLadyKerr%2Fgh-cli-example-repo%2Fassets%2F47188731%2F9124f58c-7556-4494-9616-4a9c608aa7f9)
+
+![Image](https://user-images.githubusercontent.com/98482/84171218-327e7a80-aa40-11ea-8cd1-5177fc2d0e72.png)
+
+![Image](https://s3.us-west-1.wasabisys.com/idbwmedia.com/images/api/postman_curl_request5.png)
+
+![Image](https://www.codejava.net/images/articles/rest-api/curl-crud/cur_test_create_rest_api.png)
+
+While **GitHub Actions** runs pipelines, sometimes you need to:
+
+* Trigger workflows manually via script
+* Fetch workflow run status
+* Cancel runs automatically
+* Integrate with external systems
+* Automate DevOps dashboards
+
+That’s where CLI & API come in.
+
+---
+
+# 🔹 14.1 GitHub CLI (`gh`)
+
+Official CLI tool from **GitHub**.
+
+Install:
+
+```bash
+brew install gh        # macOS
+sudo apt install gh    # Linux
+```
+
+Login:
+
+```bash
+gh auth login
+```
+
+---
+
+# 🔹 14.2 Workflow Commands
+
+## 📌 List Workflows
+
+```bash
+gh workflow list
+```
+
+Example Output:
+
+```text
+CI Pipeline
+Deploy Production
+Terraform Apply
+```
+
+---
+
+## ▶️ Run a Workflow Manually
+
+```bash
+gh workflow run ci.yml
+```
+
+With inputs:
+
+```bash
+gh workflow run deploy.yml -f environment=prod
+```
+
+---
+
+## 📊 List Workflow Runs
+
+```bash
+gh run list
+```
+
+Shows:
+
+* Run ID
+* Status
+* Branch
+* Duration
+
+---
+
+## 🔍 View Run Details
+
+```bash
+gh run view 123456
+```
+
+View logs:
+
+```bash
+gh run view 123456 --log
+```
+
+---
+
+## ❌ Cancel a Run
+
+```bash
+gh run cancel 123456
+```
+
+Useful in:
+
+* Emergency rollback
+* Duplicate deploy prevention
+
+---
+
+# 🔹 14.3 Automation Example (Shell Script)
+
+```bash
+#!/bin/bash
+
+gh workflow run deploy.yml -f environment=staging
+sleep 10
+gh run list
+```
+
+Used in:
+
+* Release automation
+* Scheduled operations
+
+---
+
+# 🔹 14.4 GitHub REST API (Advanced Integration)
+
+API Base:
+
+```text
+https://api.github.com
+```
+
+Example: List workflow runs
+
+```bash
+curl -H "Authorization: Bearer TOKEN" \
+https://api.github.com/repos/OWNER/REPO/actions/runs
+```
+
+Trigger workflow dispatch:
+
+```bash
+curl -X POST \
+-H "Authorization: Bearer TOKEN" \
+-H "Accept: application/vnd.github+json" \
+https://api.github.com/repos/OWNER/REPO/actions/workflows/deploy.yml/dispatches \
+-d '{"ref":"main"}'
+```
+
+Use case:
+
+* Trigger from external CI system
+* Integrate with Jenkins
+* Connect with internal tools
+
+---
+
+# 🔹 14.5 GitHub GraphQL API
+
+More flexible than REST.
+
+Single endpoint:
+
+```text
+https://api.github.com/graphql
+```
+
+Example query:
+
+```graphql
+{
+  repository(owner: "org", name: "repo") {
+    workflows(first: 10) {
+      nodes {
+        name
+      }
+    }
+  }
+}
+```
+
+Best for:
+
+* Custom dashboards
+* Enterprise reporting
+* Advanced analytics
+
+---
+
+# 🔹 14.6 CI/CD Dashboard Automation
+
+You can:
+
+* Fetch deployment status
+* Track failed runs
+* Build Slack notifications
+* Auto-generate reports
+
+Example Flow:
+
+```text
+CI Run Completed
+   ↓
+API Fetch Status
+   ↓
+Send Slack Alert
+   ↓
+Store Metrics
+```
+
+---
+
+# 🔹 14.7 Secure API Usage
+
+⚠️ Important:
+
+* Use Personal Access Tokens (PAT) securely
+* Use fine-grained tokens
+* Never expose tokens in logs
+* Rotate tokens regularly
+
+Best practice:
+
+* Use GitHub App authentication for enterprise systems
+
+---
+
+# 🔹 14.8 Real DevOps Use Case (Your Path)
+
+For Docker + Terraform + EKS:
+
+You can:
+
+* Trigger production deploy from CLI
+* Cancel running Terraform apply
+* Fetch deployment logs automatically
+* Create custom DevOps monitoring dashboard
+
+Example:
+
+```bash
+gh workflow run production.yml
+```
+
+---
+
+# 🔹 14.9 When to Use What?
+
+| Tool          | Use Case                 |
+| ------------- | ------------------------ |
+| YAML Workflow | Standard CI/CD           |
+| GitHub CLI    | Manual/Script automation |
+| REST API      | System integration       |
+| GraphQL API   | Advanced reporting       |
+
+---
+
+# 🔥 Enterprise Pattern
+
+Large companies use:
+
+```text
+GitHub Actions
+   ↓
+REST API
+   ↓
+Internal Monitoring System
+   ↓
+Slack / Email Alerts
+```
+
+Automated DevOps ecosystem.
+
+---
+
+# 🎯 Summary
+
+GitHub CLI & API allow you to:
+
+* Trigger workflows programmatically
+* Monitor runs
+* Cancel deployments
+* Integrate external tools
+* Build DevOps dashboards
+
+Mastering this → You move from pipeline user to DevOps automation engineer.
+
+---
