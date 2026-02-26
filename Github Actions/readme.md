@@ -4226,3 +4226,324 @@ GitHub CLI & API allow you to:
 Mastering this → You move from pipeline user to DevOps automation engineer.
 
 ---
+# 1️⃣5️⃣ Actions (Pre-built • Custom • JavaScript • Docker • Composite • Marketplace)
+
+## 🧩 What is an Action?
+
+![Image](https://d2908q01vomqb2.cloudfront.net/7719a1c782a1ba91c031a682a0a2f8658209adbf/2022/03/27/1-ArchitectureDiagram.png)
+
+![Image](https://images.ctfassets.net/8aevphvgewt8/5kVxaacutdvGyusbgk64iw/23fa8c76260945d6a8f28327e9910397/actions-river-breakout.webp)
+
+![Image](https://storage2.timheuer.com/steptemplates.png)
+
+![Image](https://miro.medium.com/v2/resize%3Afit%3A1400/0%2AvlV8nvuqagRof_3B)
+
+In **GitHub Actions**, an **Action** is a reusable unit of automation.
+
+Instead of writing long `run:` commands repeatedly, you can use or build Actions to:
+
+* Checkout code
+* Setup Node/Python
+* Build Docker images
+* Deploy to cloud
+* Send notifications
+
+---
+
+# 🔹 15.1 Pre-built Actions
+
+Pre-built actions are already available and maintained by GitHub or the community.
+
+Example:
+
+```yaml
+- uses: actions/checkout@v4
+```
+
+Popular official actions:
+
+```yaml
+- uses: actions/checkout@v4
+- uses: actions/setup-node@v4
+- uses: actions/setup-python@v5
+- uses: actions/cache@v4
+- uses: actions/upload-artifact@v4
+```
+
+Advantages:
+
+* Well tested
+* Versioned
+* Secure
+* Fast setup
+
+Best practice:
+
+```yaml
+uses: actions/checkout@v4
+```
+
+✅ Always pin version.
+
+---
+
+# 🔹 15.2 Creating Custom Action
+
+When pre-built action doesn't meet your need → create custom action.
+
+Basic structure:
+
+```text
+my-action/
+ ├── action.yml
+ ├── index.js / Dockerfile
+ └── README.md
+```
+
+Main file: `action.yml`
+
+Example:
+
+```yaml
+name: "My Custom Action"
+description: "Print Hello"
+runs:
+  using: "node20"
+  main: "index.js"
+```
+
+Now you can use it:
+
+```yaml
+- uses: username/my-action@v1
+```
+
+---
+
+# 🔹 15.3 JavaScript Action
+
+Runs JavaScript code directly inside runner.
+
+Best for:
+
+* API calls
+* File processing
+* Automation logic
+
+Example structure:
+
+```text
+my-js-action/
+ ├── action.yml
+ ├── index.js
+ └── package.json
+```
+
+### action.yml
+
+```yaml
+name: "JS Action"
+runs:
+  using: "node20"
+  main: "index.js"
+```
+
+### index.js
+
+```javascript
+console.log("Hello from JavaScript Action");
+```
+
+Advantages:
+
+* Fast execution
+* No container overhead
+* Direct runner integration
+
+Used for:
+
+* Slack notifications
+* PR automation
+* Label bots
+
+---
+
+# 🔹 15.4 Docker Action
+
+Runs inside a Docker container.
+
+Best for:
+
+* Complex dependencies
+* Custom runtime
+* Multi-language tools
+
+Structure:
+
+```text
+my-docker-action/
+ ├── Dockerfile
+ ├── action.yml
+```
+
+### action.yml
+
+```yaml
+name: "Docker Action"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+```
+
+### Dockerfile
+
+```dockerfile
+FROM alpine:3.18
+CMD ["echo", "Hello from Docker Action"]
+```
+
+Advantages:
+
+* Fully isolated
+* Custom OS & tools
+* Portable
+
+Used in:
+
+* Security scanners
+* DevOps tools
+* Kubernetes utilities
+
+---
+
+# 🔹 15.5 Composite Action
+
+Lightweight reusable action that groups multiple steps.
+
+Best for:
+
+* Reusable step blocks
+* Standardized commands
+* Repeated logic
+
+Example:
+
+```yaml
+name: "Composite Action"
+runs:
+  using: "composite"
+  steps:
+    - run: echo "Step 1"
+      shell: bash
+    - run: echo "Step 2"
+      shell: bash
+```
+
+Usage:
+
+```yaml
+- uses: username/composite-action@v1
+```
+
+Difference from reusable workflow:
+
+| Feature        | Composite  | Reusable Workflow   |
+| -------------- | ---------- | ------------------- |
+| Contains jobs  | ❌ No       | ✅ Yes               |
+| Contains steps | ✅ Yes      | ✅ Yes               |
+| Best for       | Step reuse | Full pipeline reuse |
+
+---
+
+# 🔹 15.6 Using Marketplace Actions
+
+Marketplace available inside **GitHub**.
+
+Search:
+
+```text
+GitHub → Marketplace → Actions
+```
+
+Common categories:
+
+* CI setup
+* Docker
+* AWS
+* Azure
+* GCP
+* Security scanning
+* Notifications
+
+Example:
+
+```yaml
+- uses: docker/login-action@v3
+```
+
+Best practices:
+
+✅ Check:
+
+* Stars
+* Maintenance activity
+* Documentation
+* Verified creator
+
+❌ Avoid:
+
+* Unmaintained actions
+* Random forks
+* No version pinning
+
+---
+
+# 🔥 Real DevOps Example (Your Stack)
+
+Docker + Terraform + EKS
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+      - run: docker build -t myapp .
+      - uses: actions/upload-artifact@v4
+```
+
+Here you used:
+
+* Pre-built action
+* Marketplace action
+* Artifact action
+
+---
+
+# 🔹 When to Use What?
+
+| Scenario                | Recommended Type   |
+| ----------------------- | ------------------ |
+| Simple reusable steps   | Composite Action   |
+| Full CI template        | Reusable Workflow  |
+| API automation          | JavaScript Action  |
+| Complex tool dependency | Docker Action      |
+| Common tasks            | Marketplace Action |
+
+---
+
+# 🎯 Summary
+
+GitHub Actions ecosystem includes:
+
+* Pre-built actions
+* Custom actions
+* JavaScript actions
+* Docker actions
+* Composite actions
+* Marketplace actions
+
+Understanding this gives you full control over automation architecture.
+
+---
