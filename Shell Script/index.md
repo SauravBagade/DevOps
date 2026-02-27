@@ -282,5 +282,3 @@
 * Project 5 – CI/CD Deployment Pipeline
 
 ---
-
-Tell me your next action 🚀
