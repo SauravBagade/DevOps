@@ -22,7 +22,6 @@
 | Service                         | Purpose                             |
 | ------------------------------- | ----------------------------------- |
 | **CloudFormation**              | IaC for full AWS stack              |
-| **CDK (Cloud Development Kit)** | IaC using Typescript/Python/Go/Java |
 | **EC2 Image Builder**           | Golden AMI creation                 |
 
 > Terraform also commonly used (not AWS service but major DevOps tool)
@@ -69,10 +68,6 @@
 | Service        | Purpose                         |
 | -------------- | ------------------------------- |
 | **CloudWatch** | Metrics + logs + alarms         |
-| **X-Ray**      | Distributed tracing             |
-| **CloudTrail** | API audit logs                  |
-| **Config**     | Resource compliance tracking    |
-| **OpenSearch** | Log analytics (ELK alternative) |
 
 > Grafana, Prometheus, Datadog also commonly used externally
 
@@ -100,7 +95,6 @@
 | **GuardDuty**                       | Threat detection                              |
 | **Security Hub**                    | Security posture                              |
 | **Macie**                           | S3 data security                              |
-| **Inspector**                       | Vulnerability scanning                        |
 
 ---
 
