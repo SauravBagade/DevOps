@@ -857,3 +857,292 @@ The instance must have a **public IP address**.
 | Network error        | Public IP not assigned          |
 
 ---
+
+# 9. EC2 Instance Types and Pricing Models
+
+---
+Amazon EC2 provides different **instance types** and **pricing models** so organizations can choose the most suitable combination for their application workloads.
+
+Instance types define the **hardware configuration**, while pricing models determine **how you pay for using those resources**.
+
+---
+
+# 9.1 EC2 Instance Types
+
+An **EC2 Instance Type** defines the hardware specifications of a virtual machine running in AWS.
+
+It determines:
+
+* Number of **vCPUs**
+* Amount of **RAM**
+* **Storage performance**
+* **Network bandwidth**
+* **GPU capability**
+
+AWS provides multiple instance families optimized for different workloads.
+
+---
+
+## General Purpose Instances
+
+General purpose instances provide a balance of **compute, memory, and networking resources**.
+
+Common families:
+
+| Instance Family | Example | Use Case            |
+| --------------- | ------- | ------------------- |
+| T-Series        | t2, t3  | Small applications  |
+| M-Series        | m5, m6  | Web servers         |
+| A-Series        | a1      | ARM-based workloads |
+
+Example:
+
+```
+t2.micro
+1 vCPU
+1 GB RAM
+```
+
+Common uses:
+
+* Small web servers
+* Development environments
+* Testing applications
+
+---
+
+## Compute Optimized Instances
+
+Compute optimized instances are designed for **high CPU performance workloads**.
+
+| Instance Family | Example | Use Case                |
+| --------------- | ------- | ----------------------- |
+| C-Series        | c5, c6  | CPU-intensive workloads |
+
+Typical applications:
+
+* High-performance computing
+* Batch processing
+* Video encoding
+* Scientific modeling
+
+---
+
+## Memory Optimized Instances
+
+Memory optimized instances are designed for workloads requiring **large memory capacity**.
+
+| Instance Family | Example | Use Case                    |
+| --------------- | ------- | --------------------------- |
+| R-Series        | r5, r6  | In-memory databases         |
+| X-Series        | x1      | Large-scale enterprise apps |
+
+Typical applications:
+
+* SAP HANA
+* Redis
+* Large database servers
+
+---
+
+## Storage Optimized Instances
+
+Storage optimized instances provide **high disk throughput and low latency**.
+
+| Instance Family | Example | Use Case                   |
+| --------------- | ------- | -------------------------- |
+| I-Series        | i3      | High-performance databases |
+| D-Series        | d2      | Big data storage           |
+
+Common workloads:
+
+* Data warehousing
+* NoSQL databases
+* Big data analytics
+
+---
+
+## Accelerated Computing Instances
+
+These instances use **hardware accelerators such as GPUs or FPGAs**.
+
+| Instance Family | Example | Use Case            |
+| --------------- | ------- | ------------------- |
+| P-Series        | p3, p4  | Machine learning    |
+| G-Series        | g4      | Graphics processing |
+| F-Series        | f1      | FPGA workloads      |
+
+Typical applications:
+
+* Machine learning training
+* Artificial intelligence
+* Video rendering
+* Scientific simulations
+
+---
+
+## EC2 Instance Type Categories
+
+---
+
+| Instance Category     | Instance Family              | Example Types | Key Features                     | Common Use Cases                             |
+| --------------------- | ---------------------------- | ------------- | -------------------------------- | -------------------------------------------- |
+| General Purpose       | T-Series, M-Series           | t2, t3, m5    | Balanced CPU, memory, networking | Web servers, development environments        |
+| Compute Optimized     | C-Series                     | c5, c6        | High CPU performance             | High performance computing, batch processing |
+| Memory Optimized      | R-Series, X-Series           | r5, r6, x1    | Large RAM capacity               | In-memory databases, caching systems         |
+| Storage Optimized     | I-Series, D-Series           | i3, d2        | High disk throughput             | Data warehousing, big data workloads         |
+| Accelerated Computing | P-Series, G-Series, F-Series | p3, p4, g4    | GPU / FPGA acceleration          | Machine learning, AI, video rendering        |
+
+---
+# 9.2 EC2 Instance Pricing Models
+
+AWS offers multiple **pricing models** to help optimize costs depending on workload requirements.
+
+---
+
+# 9.2.1 On-Demand Pricing
+
+On-Demand instances allow users to **pay for compute capacity by the hour or second without long-term commitment**.
+
+Characteristics:
+
+* No upfront cost
+* Pay only for usage
+* Flexible scaling
+
+Example:
+
+```
+Run EC2 for 3 hours
+Pay only for 3 hours
+```
+
+Use cases:
+
+* Development environments
+* Short-term workloads
+* Testing applications
+
+---
+
+# 9.2.2 Reserved Instances (RI)
+
+Reserved Instances provide **significant discounts in exchange for a commitment to use EC2 for 1 or 3 years**.
+
+Benefits:
+
+* Lower hourly cost
+* Capacity reservation
+* Predictable pricing
+
+Savings:
+
+```
+Up to 70% cheaper than On-Demand
+```
+
+Use cases:
+
+* Production servers
+* Long-running workloads
+* Databases
+
+---
+
+# 9.2.3 Spot Instances
+
+Spot Instances allow users to use **unused AWS compute capacity at a much lower price**.
+
+However, AWS may terminate these instances if the capacity is needed elsewhere.
+
+Cost savings:
+
+```
+Up to 90% cheaper than On-Demand
+```
+
+Use cases:
+
+* Batch processing
+* Data analysis
+* CI/CD pipelines
+* Machine learning training
+
+---
+
+# 9.2.4 Savings Plans
+
+Savings Plans allow users to commit to a **specific amount of compute usage per hour for 1 or 3 years**.
+
+Benefits:
+
+* Flexible instance usage
+* Lower cost compared to On-Demand
+
+Savings:
+
+```
+Up to 72% cost reduction
+```
+
+---
+
+# 9.2.5 Dedicated Hosts
+
+Dedicated Hosts provide **physical servers dedicated to a single customer**.
+
+Benefits:
+
+* Hardware isolation
+* Compliance requirements
+* License-based applications
+
+Use cases:
+
+* Enterprise software licensing
+* Government or regulated workloads
+
+---
+
+## EC2 Pricing Models
+
+---
+
+| Pricing Model      | Description                                    | Commitment           | Cost Savings     | Best Use Case                         |
+| ------------------ | ---------------------------------------------- | -------------------- | ---------------- | ------------------------------------- |
+| On-Demand          | Pay for compute capacity by the hour or second | None                 | Standard price   | Development, testing, short workloads |
+| Reserved Instances | Reserve instances for 1 or 3 years             | Long-term commitment | Up to 70%        | Production servers, databases         |
+| Spot Instances     | Use unused AWS capacity                        | No guarantee         | Up to 90%        | Batch processing, CI/CD pipelines     |
+| Savings Plans      | Commit to hourly usage for 1 or 3 years        | Flexible commitment  | Up to 72%        | Long-running workloads                |
+| Dedicated Hosts    | Physical server dedicated to one customer      | Long-term            | Depends on usage | Compliance and license requirements   |
+
+---
+
+# 9.3 Example EC2 Pricing Scenario
+
+Example application architecture:
+
+```
+Web Application
+     │
+     ▼
+Application Load Balancer
+     │
+ ├── EC2 Instance (Web Server)
+ ├── EC2 Instance (Application Server)
+     │
+     ▼
+RDS Database
+```
+
+Possible pricing strategy:
+
+| Component           | Pricing Model      |
+| ------------------- | ------------------ |
+| Web Servers         | On-Demand          |
+| Application Servers | Reserved Instances |
+| Batch Processing    | Spot Instances     |
+
+This helps optimize infrastructure cost.
+
+---
