@@ -2,6 +2,7 @@
 
 # 7. AWS Documentation – EC2 Instance Creation
 
+---
 ## 7.1 Introduction to Amazon EC2
 
 **Amazon EC2 (Elastic Compute Cloud)** is a cloud computing service that allows users to launch and manage **virtual servers in the AWS cloud**.
