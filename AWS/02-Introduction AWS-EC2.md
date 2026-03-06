@@ -527,8 +527,333 @@ S3 Storage
 
 This architecture provides:
 
-* High availability
-* Scalability
-* Fault tolerance
+---
+# 8. Access EC2 Instance from Windows
+---
+After launching an EC2 instance, administrators need to connect to the instance to configure software, deploy applications, and manage the system.
+
+From a **Windows machine**, EC2 instances can be accessed using several methods:
+
+| Method         | Tool                 | Protocol          |
+| -------------- | -------------------- | ----------------- |
+| Git Bash       | Git Bash terminal    | SSH               |
+| Command Prompt | OpenSSH              | SSH               |
+| PowerShell     | PowerShell SSH       | SSH               |
+| Web Browser    | EC2 Instance Connect | Browser-based SSH |
+
+Most Linux EC2 instances use **SSH (Secure Shell)** for secure remote access.
+
+---
+
+# 8.1 Access EC2 Using Git Bash (Windows)
+
+Git Bash provides a **Linux-like terminal environment for Windows** and supports SSH commands.
+
+### Step 1 – Install Git Bash
+
+Download and install:
+
+[https://git-scm.com](https://git-scm.com)
+
+After installation, open **Git Bash**.
+
+---
+
+### Step 2 – Locate the Key Pair File
+
+During EC2 instance creation, AWS provides a **key pair file (.pem)**.
+
+Example:
+
+```
+devops-key.pem
+```
+
+Move the file to a known directory.
+
+Example:
+
+```
+C:\Users\username\Downloads
+```
+
+---
+
+### Step 3 – Set Correct Permissions (Optional)
+
+Run the following command in Git Bash:
+
+```bash
+chmod 400 devops-key.pem
+```
+
+This ensures only the owner can read the private key.
+
+---
+
+### Step 4 – Connect to the Instance
+
+Use the SSH command:
+
+```bash
+ssh -i devops-key.pem ec2-user@public-ip
+```
+
+Example:
+
+```bash
+ssh -i devops-key.pem ec2-user@54.221.10.20
+```
+
+---
+
+### Step 5 – Successful Connection
+
+If the connection is successful, the terminal will show:
+
+```
+[ec2-user@ip-172-31-10-24 ~]$
+```
+
+You are now connected to the EC2 instance.
+
+---
+
+# 8.2 Access EC2 Using Windows Command Prompt (CMD)
+
+Modern Windows systems include **OpenSSH client support**, allowing connections through Command Prompt.
+
+---
+
+### Step 1 – Open Command Prompt
+
+Press:
+
+```
+Windows + R
+```
+
+Type:
+
+```
+cmd
+```
+
+---
+
+### Step 2 – Navigate to Key Pair Location
+
+Example:
+
+```
+cd Downloads
+```
+
+---
+
+### Step 3 – Connect Using SSH
+
+Run:
+
+```bash
+ssh -i devops-key.pem ec2-user@public-ip
+```
+
+Example:
+
+```bash
+ssh -i devops-key.pem ec2-user@54.221.10.20
+```
+
+---
+
+### Step 4 – Accept Security Prompt
+
+First-time connection will show:
+
+```
+Are you sure you want to continue connecting?
+```
+
+Type:
+
+```
+yes
+```
+
+The EC2 terminal session will start.
+
+---
+
+# 8.3 Access EC2 Using Windows PowerShell
+
+PowerShell also supports **OpenSSH-based connections**.
+
+---
+
+### Step 1 – Open PowerShell
+
+Press:
+
+```
+Windows + X
+```
+
+Select:
+
+```
+Windows PowerShell
+```
+
+---
+
+### Step 2 – Navigate to Key File
+
+Example:
+
+```powershell
+cd C:\Users\username\Downloads
+```
+
+---
+
+### Step 3 – Run SSH Command
+
+```powershell
+ssh -i devops-key.pem ec2-user@public-ip
+```
+
+Example:
+
+```powershell
+ssh -i devops-key.pem ec2-user@54.221.10.20
+```
+
+---
+
+### Step 4 – Connected Session
+
+After successful login, you will see the Linux shell prompt.
+
+Example:
+
+```
+[ec2-user@ip-172-31-10-24 ~]$
+```
+
+---
+
+# 8.4 Access EC2 Using Web Browser (EC2 Instance Connect)
+
+AWS also provides **browser-based SSH access**.
+
+This method does not require installing any SSH client.
+
+---
+
+### Step 1 – Open AWS Console
+
+Navigate to:
+
+```
+AWS Console → EC2 → Instances
+```
+
+---
+
+### Step 2 – Select the Instance
+
+Select the EC2 instance you want to connect to.
+
+---
+
+### Step 3 – Click Connect
+
+Click:
+
+```
+Connect
+```
+
+Choose:
+
+```
+EC2 Instance Connect
+```
+
+---
+
+### Step 4 – Connect Using Browser
+
+Click:
+
+```
+Connect
+```
+
+AWS will open a **browser-based terminal session**.
+
+Example terminal:
+
+```
+ec2-user@ip-172-31-10-24:~$
+```
+
+---
+
+# 8.5 Default SSH Usernames
+
+The username depends on the AMI used.
+
+| AMI          | Default Username |
+| ------------ | ---------------- |
+| Amazon Linux | ec2-user         |
+| Ubuntu       | ubuntu           |
+| Red Hat      | ec2-user         |
+| Debian       | admin            |
+| CentOS       | centos           |
+
+Example connection:
+
+```bash
+ssh -i devops-key.pem ubuntu@public-ip
+```
+
+---
+
+# 8.6 Security Requirements
+
+To connect successfully, the following conditions must be met:
+
+### Security Group Rules
+
+Inbound rule must allow SSH:
+
+| Type | Port | Source  |
+| ---- | ---- | ------- |
+| SSH  | 22   | Your IP |
+
+---
+
+### Key Pair
+
+The correct **private key (.pem)** must be used.
+
+---
+
+### Public IP
+
+The instance must have a **public IP address**.
+
+---
+
+# 8.7 Troubleshooting Connection Issues
+
+| Issue                | Cause                           |
+| -------------------- | ------------------------------- |
+| Connection timed out | Security group blocking port 22 |
+| Permission denied    | Incorrect key file              |
+| Host unreachable     | Instance not running            |
+| Network error        | Public IP not assigned          |
 
 ---
