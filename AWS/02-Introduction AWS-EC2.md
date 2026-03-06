@@ -1146,3 +1146,360 @@ Possible pricing strategy:
 This helps optimize infrastructure cost.
 
 ---
+
+# 10. Amazon Machine Image (AMI) and Launch Templates
+
+---
+Amazon EC2 uses **Amazon Machine Images (AMIs)** and **Launch Templates** to standardize and automate the process of launching instances. These features help organizations maintain consistent infrastructure and enable automated deployments in DevOps environments.
+
+---
+
+# 10.1 Amazon Machine Image (AMI)
+
+## Definition
+
+An **Amazon Machine Image (AMI)** is a preconfigured template used to launch EC2 instances.
+
+An AMI contains the information required to start an instance, including:
+
+* Operating system
+* Application server (optional)
+* Pre-installed software
+* System configuration
+* Boot configuration
+* Storage configuration
+
+When an EC2 instance is launched, AWS uses the AMI as a **blueprint to create the virtual machine**.
+
+---
+
+## Components of an AMI
+
+An AMI typically contains the following components.
+
+### Root Volume Template
+
+The root volume contains the **operating system and system files** required to start the instance.
+
+Supported storage types:
+
+* EBS-backed storage
+* Instance store-backed storage
+
+---
+
+### Launch Permissions
+
+Launch permissions control **which AWS accounts are allowed to use the AMI**.
+
+Possible permissions:
+
+| Type    | Description                         |
+| ------- | ----------------------------------- |
+| Private | Only owner account can use the AMI  |
+| Public  | Any AWS account can launch the AMI  |
+| Shared  | Specific AWS accounts can access it |
+
+---
+
+### Block Device Mapping
+
+Block device mapping defines the **storage volumes attached to the instance** when it launches.
+
+Example configuration:
+
+| Volume            | Type | Size  |
+| ----------------- | ---- | ----- |
+| Root Volume       | gp3  | 8 GB  |
+| Additional Volume | gp3  | 20 GB |
+
+---
+
+## Types of AMIs
+
+AWS supports several AMI types.
+
+### AWS Provided AMIs
+
+Provided and maintained by AWS.
+
+Examples:
+
+* Amazon Linux
+* Amazon Linux 2023
+* Windows Server
+
+---
+
+### AWS Marketplace AMIs
+
+Preconfigured AMIs available from vendors.
+
+Examples:
+
+* WordPress servers
+* Security appliances
+* Database images
+
+These AMIs may include **additional licensing costs**.
+
+---
+
+### Community AMIs
+
+Created and shared by AWS users.
+
+Used for:
+
+* Open source software
+* Custom environments
+
+Users must verify the security of these AMIs before using them.
+
+---
+
+### Custom AMIs
+
+Organizations can create their own AMIs.
+
+Example process:
+
+```
+Launch EC2
+Install applications
+Configure environment
+Create AMI
+```
+
+The custom AMI can then be used to launch multiple identical servers.
+
+---
+
+## Creating an AMI
+
+Steps to create an AMI:
+
+1. Launch an EC2 instance
+2. Install required software
+3. Configure system settings
+4. Stop the instance
+5. Create image (AMI)
+
+Console path:
+
+```
+EC2 → Instances → Actions → Image → Create Image
+```
+
+AWS will create:
+
+* AMI image
+* Associated EBS snapshot
+
+---
+
+## Advantages of AMIs
+
+Benefits of AMIs include:
+
+* Rapid instance deployment
+* Standardized server environments
+* Easy scaling
+* Infrastructure consistency
+* Disaster recovery support
+
+---
+
+# 10.2 Launch Templates
+
+## Definition
+
+A **Launch Template** is a configuration template that defines how EC2 instances should be launched.
+
+It stores **all instance configuration settings in a reusable template**.
+
+Launch Templates simplify infrastructure management by allowing users to **launch instances with predefined settings**.
+
+---
+
+## Purpose of Launch Templates
+
+Launch templates are commonly used in:
+
+* Auto Scaling Groups
+* DevOps automation
+* Infrastructure as Code
+* CI/CD pipelines
+
+They help ensure consistent infrastructure deployment.
+
+---
+
+## Components of a Launch Template
+
+A launch template can include the following configuration settings.
+
+### AMI ID
+
+Specifies the operating system image used when launching instances.
+
+Example:
+
+```
+ami-0513a13abf4d498f5
+```
+
+---
+
+### Instance Type
+
+Defines hardware specifications.
+
+Example:
+
+```
+t2.micro
+```
+
+---
+
+### Key Pair
+
+Used for SSH or RDP access.
+
+Example:
+
+```
+devops-key
+```
+
+---
+
+### Security Groups
+
+Defines firewall rules for the instance.
+
+Example:
+
+| Protocol | Port | Purpose       |
+| -------- | ---- | ------------- |
+| SSH      | 22   | Remote access |
+| HTTP     | 80   | Web server    |
+
+---
+
+### Storage Configuration
+
+Defines EBS volume settings.
+
+Example:
+
+| Volume Type | Size |
+| ----------- | ---- |
+| gp3         | 8 GB |
+
+---
+
+### Network Configuration
+
+Defines networking components such as:
+
+* VPC
+* Subnet
+* Public IP
+* Network interfaces
+
+---
+
+### User Data
+
+User data scripts run automatically when an instance launches.
+
+Example:
+
+```
+#!/bin/bash
+yum update -y
+yum install httpd -y
+systemctl start httpd
+```
+
+This automatically installs a web server.
+
+---
+
+## Launch Template Versions
+
+Launch templates support **versioning**.
+
+Each time a configuration is modified, AWS creates a **new version**.
+
+Example:
+
+| Version | Description            |
+| ------- | ---------------------- |
+| v1      | Initial configuration  |
+| v2      | Updated instance type  |
+| v3      | Added user data script |
+
+This allows controlled infrastructure updates.
+
+---
+
+## Creating a Launch Template
+
+Steps:
+
+1. Open AWS Console
+2. Navigate to EC2
+3. Select Launch Templates
+4. Click Create Launch Template
+
+Console path:
+
+```
+EC2 → Launch Templates → Create Launch Template
+```
+
+Provide configuration such as:
+
+* Template name
+* AMI
+* Instance type
+* Security group
+* Storage
+* Key pair
+
+---
+
+## Launch Template vs Launch Configuration
+
+Launch configurations were previously used with Auto Scaling but are now **deprecated in favor of Launch Templates**.
+
+Comparison:
+
+| Feature                 | Launch Template | Launch Configuration |
+| ----------------------- | --------------- | -------------------- |
+| Versioning              | Supported       | Not supported        |
+| Multiple instance types | Supported       | Not supported        |
+| Spot instance support   | Yes             | Limited              |
+| Future AWS support      | Yes             | Limited              |
+
+Launch templates are the **recommended method for EC2 deployments**.
+
+---
+
+# 10.3 AMI vs Launch Template
+
+| Feature              | AMI (Amazon Machine Image)      | Launch Template                                 |
+| -------------------- | ------------------------------- | ----------------------------------------------- |
+| Purpose              | Server image                    | Instance launch configuration                   |
+| Contains             | OS + Installed software         | Instance settings                               |
+| Defines              | Operating system environment    | How instance should launch                      |
+| Includes             | OS, packages, configuration     | AMI ID, instance type, key pair, security group |
+| Used for             | Creating identical servers      | Automating instance creation                    |
+| User Data            | Normally not stored permanently | User data can be defined                        |
+| Versioning           | No version control              | Supports versions                               |
+| Used in Auto Scaling | Yes                             | Yes (recommended method)                        |
+
+---
