@@ -1503,3 +1503,309 @@ Launch templates are the **recommended method for EC2 deployments**.
 | Used in Auto Scaling | Yes                             | Yes (recommended method)                        |
 
 ---
+
+# 11. EC2 Instance Metadata and User Data
+
+---
+Amazon EC2 provides two important mechanisms that help configure and manage instances automatically:
+
+* **Instance Metadata**
+* **User Data**
+
+These features allow applications and scripts running inside an EC2 instance to access information about the instance and automatically configure the system during startup.
+
+---
+
+# 11.1 EC2 Instance Metadata
+
+## Definition
+
+**Instance Metadata** is information about the EC2 instance that can be accessed from within the instance itself.
+
+This data includes details about:
+
+* Instance ID
+* Instance type
+* Security groups
+* Network configuration
+* IAM role credentials
+* Availability zone
+* Public and private IP addresses
+
+The metadata is available through a special **local HTTP endpoint** provided by AWS.
+
+---
+
+## Metadata Service Endpoint
+
+Instance metadata can be accessed through the following address:
+
+```
+http://169.254.169.254/latest/meta-data/
+```
+
+This IP address is a **link-local address**, meaning it is accessible only from inside the EC2 instance.
+
+Example command:
+
+```bash
+curl http://169.254.169.254/latest/meta-data/
+```
+
+This command returns a list of metadata categories.
+
+---
+
+## Common Metadata Information
+
+Some commonly accessed metadata items include:
+
+| Metadata                    | Description                       |
+| --------------------------- | --------------------------------- |
+| instance-id                 | Unique ID of the EC2 instance     |
+| instance-type               | Type of instance (e.g., t2.micro) |
+| local-ipv4                  | Private IP address                |
+| public-ipv4                 | Public IP address                 |
+| security-groups             | Attached security groups          |
+| ami-id                      | AMI used to launch the instance   |
+| placement/availability-zone | Instance AZ location              |
+
+Example:
+
+```bash
+curl http://169.254.169.254/latest/meta-data/instance-id
+```
+
+Output example:
+
+```
+i-0a12bc34d56ef7890
+```
+
+---
+
+## Metadata Categories
+
+Instance metadata contains several categories of information.
+
+### Instance Identity
+
+Information about the instance identity.
+
+Examples:
+
+* instance-id
+* instance-type
+* ami-id
+
+---
+
+### Network Information
+
+Details about the instance networking.
+
+Examples:
+
+* public-ipv4
+* local-ipv4
+* network interfaces
+
+---
+
+### Security Information
+
+Security-related configuration.
+
+Examples:
+
+* security groups
+* IAM role credentials
+
+---
+
+### Placement Information
+
+Information about the instance location.
+
+Examples:
+
+* region
+* availability zone
+
+---
+
+# 11.2 Instance Metadata Service Versions
+
+AWS supports two versions of the metadata service.
+
+---
+
+## IMDSv1
+
+The original metadata service.
+
+Characteristics:
+
+* Simple HTTP requests
+* No authentication token required
+
+Example:
+
+```bash
+curl http://169.254.169.254/latest/meta-data/
+```
+
+---
+
+## IMDSv2 (Recommended)
+
+A more secure version of metadata service.
+
+Requires a **session token** before accessing metadata.
+
+Example token request:
+
+```bash
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" \
+-H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+```
+
+Retrieve metadata using token:
+
+```bash
+curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+http://169.254.169.254/latest/meta-data/
+```
+
+Benefits of IMDSv2:
+
+* Protection against SSRF attacks
+* Improved security
+* Session-based authentication
+
+---
+
+# 11.3 IAM Role Metadata
+
+If an IAM role is attached to an EC2 instance, the metadata service provides **temporary security credentials**.
+
+Example path:
+
+```
+http://169.254.169.254/latest/meta-data/iam/security-credentials/
+```
+
+Example usage:
+
+Applications can automatically obtain AWS credentials without storing access keys.
+
+Example use case:
+
+```
+EC2 instance → Access S3 bucket using IAM role
+```
+
+---
+
+# 11.4 EC2 User Data
+
+## Definition
+
+**User Data** is a feature that allows users to provide scripts or commands that run automatically when an EC2 instance launches.
+
+This feature is commonly used to automate instance configuration during startup.
+
+User Data is executed during the **first boot of the instance**.
+
+---
+
+## Common Uses of User Data
+
+User Data is widely used for:
+
+* Installing software
+* Updating operating systems
+* Configuring services
+* Deploying applications
+* Running initialization scripts
+
+---
+
+## Example User Data Script
+
+Example script to install Apache web server:
+
+```bash
+#!/bin/bash
+yum update -y
+yum install httpd -y
+systemctl start httpd
+systemctl enable httpd
+```
+
+When the EC2 instance starts, this script will:
+
+1. Update system packages
+2. Install Apache
+3. Start the web server
+4. Enable Apache at boot
+
+---
+
+## How User Data Works
+
+User data scripts are processed by a service called **cloud-init**.
+
+The process:
+
+```
+EC2 Instance Launch
+        │
+        ▼
+cloud-init reads User Data
+        │
+        ▼
+Script executed
+        │
+        ▼
+Instance configured automatically
+```
+
+---
+
+## Adding User Data
+
+User Data can be added during instance launch.
+
+Steps:
+
+```
+EC2 → Launch Instance → Advanced Details → User Data
+```
+
+Paste the script into the User Data field.
+
+---
+
+## Viewing User Data
+
+User data can be viewed inside the instance.
+
+Example command:
+
+```bash
+curl http://169.254.169.254/latest/user-data
+```
+
+---
+
+# 11.5 Differences Between Metadata and User Data
+
+| Feature       | Instance Metadata                       | User Data                               |
+| ------------- | --------------------------------------- | --------------------------------------- |
+| Purpose       | Provides information about the instance | Executes scripts during instance launch |
+| Access Method | Metadata service (HTTP endpoint)        | Passed during instance launch           |
+| Availability  | Always available inside instance        | Available only if provided              |
+| Use Case      | Retrieve instance information           | Automate system configuration           |
+
+---
