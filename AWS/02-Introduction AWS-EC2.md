@@ -1809,3 +1809,750 @@ curl http://169.254.169.254/latest/user-data
 | Use Case      | Retrieve instance information           | Automate system configuration           |
 
 ---
+
+# AWS EC2 – Elastic Network Interface (ENI) ip a
+
+---
+
+## 1. Introduction to Elastic Network Interface (ENI)
+
+**Elastic Network Interface (ENI)** is a **virtual network card (NIC)** that you can attach to an **Amazon EC2 instance** inside a **Amazon Web Services Virtual Private Cloud (VPC)**.
+
+It allows an EC2 instance to communicate with other resources in the network such as:
+
+* Internet
+* Other EC2 instances
+* Databases
+* Load balancers
+* On-premises networks via VPN
+
+Each EC2 instance has **at least one network interface**, called the **Primary Network Interface (eth0)**.
+
+An ENI contains:
+
+* **Private IPv4 address**
+* **Elastic IP address (optional)**
+* **Security groups**
+* **MAC address**
+* **Public IPv4 address (optional)**
+* **Secondary private IP addresses**
+
+ENI helps manage networking independently from the EC2 instance lifecycle.
+
+---
+
+## 2. Components of an Elastic Network Interface
+
+An ENI includes several networking attributes.
+
+### 2.1 Private IPv4 Address
+
+Each ENI must have a **primary private IPv4 address** from the subnet.
+
+Example:
+
+```
+Subnet CIDR: 10.0.1.0/24
+Instance Private IP: 10.0.1.15
+```
+
+This IP is used for **internal communication within the VPC**.
+
+---
+
+### 2.2 Secondary Private IP Address
+
+An ENI can have **multiple private IP addresses**.
+
+Example:
+
+```
+Primary IP:   10.0.1.15
+Secondary IP: 10.0.1.20
+Secondary IP: 10.0.1.21
+```
+
+Use cases:
+
+* Hosting multiple applications
+* Failover systems
+* Load balancing
+* Container workloads
+
+---
+
+### 2.3 Elastic IP Address (EIP)
+
+A **public static IPv4 address** that can be associated with the ENI.
+
+Example:
+
+```
+Private IP: 10.0.1.15
+Elastic IP: 54.210.10.55
+```
+
+Benefits:
+
+* Static public IP
+* Remains same even if instance stops
+* Can move between instances
+
+---
+
+### 2.4 Security Groups
+
+Security groups act as **virtual firewalls**.
+
+They control:
+
+* **Inbound traffic**
+* **Outbound traffic**
+
+Example rule:
+
+| Type | Port | Source    |
+| ---- | ---- | --------- |
+| SSH  | 22   | 0.0.0.0/0 |
+| HTTP | 80   | 0.0.0.0/0 |
+
+---
+
+### 2.5 MAC Address
+
+Each ENI has a **unique MAC address**.
+
+Example:
+
+```
+02:7b:64:3c:11:92
+```
+
+Used for **low-level network communication**.
+
+---
+
+### 2.6 Public IPv4 Address
+
+Public IP allows communication with the **internet**.
+
+Types:
+
+* Auto-assigned public IP
+* Elastic IP
+
+Example:
+
+```
+Public IP: 3.110.21.45
+```
+
+---
+
+## 3. Types of Network Interfaces
+
+### 3.1 Primary Network Interface
+
+* Automatically created when instance launches
+* Cannot be detached
+* Named **eth0**
+
+Example:
+
+```
+Instance
+   │
+   └── eth0 (Primary ENI)
+```
+
+---
+
+### 3.2 Secondary Network Interface
+
+You can create additional ENIs and attach them to the same instance.
+
+Example:
+
+```
+Instance
+   │
+   ├── eth0 (Primary ENI)
+   └── eth1 (Secondary ENI)
+```
+
+Benefits:
+
+* Multiple networks
+* Traffic separation
+* High availability
+
+---
+
+## 4. ENI Attachment Types
+
+| Attachment Type | Description               |
+| --------------- | ------------------------- |
+| Primary         | Default interface (eth0)  |
+| Secondary       | Additional interface      |
+| Detached        | Created but not attached  |
+| Reattached      | Moved to another instance |
+
+---
+
+## 5. ENI Limits
+
+Limits depend on **EC2 instance type**.
+
+Example:
+
+| Instance Type | Maximum ENIs |
+| ------------- | ------------ |
+| t2.micro      | 2            |
+| t3.medium     | 3            |
+| m5.large      | 3            |
+| c5.large      | 3            |
+
+Each ENI also supports **multiple private IP addresses**.
+
+Example:
+
+```
+1 ENI → 10+ Private IPs
+```
+
+---
+
+## 6. Use Cases of ENI
+
+### 6.1 High Availability
+
+If an instance fails:
+
+* Detach ENI
+* Attach it to another instance
+
+Result:
+
+Same IP continues working.
+
+---
+
+### 6.2 Network Security Appliances
+
+Example:
+
+* Firewall
+* Intrusion detection system
+
+Architecture:
+
+```
+Internet
+   │
+Firewall EC2
+   │
+Private EC2
+```
+
+Firewall instance uses **multiple ENIs**.
+
+---
+
+### 6.3 Multiple Network Segments
+
+Example architecture:
+
+```
+        Internet
+           │
+      Public Subnet
+           │
+        ENI 1
+           │
+        EC2 Instance
+           │
+        ENI 2
+           │
+      Private Subnet
+           │
+        Database
+```
+
+---
+
+## 7. Steps to Create an Elastic Network Interface
+
+### Step 1
+
+Login to AWS Console.
+
+Go to:
+
+```
+EC2 Dashboard
+```
+
+---
+
+### Step 2
+
+Click:
+
+```
+Network Interfaces
+```
+
+---
+
+### Step 3
+
+Click:
+
+```
+Create Network Interface
+```
+
+---
+
+### Step 4
+
+Enter details:
+
+| Field          | Example       |
+| -------------- | ------------- |
+| Description    | WebServer ENI |
+| Subnet         | Public Subnet |
+| Private IP     | Auto Assign   |
+| Security Group | Web-SG        |
+
+---
+
+### Step 5
+
+Click:
+
+```
+Create Network Interface
+```
+
+ENI will be created.
+
+---
+
+## 8. Attach ENI to EC2 Instance
+
+Steps:
+
+1. Go to **Network Interfaces**
+2. Select the ENI
+3. Click **Actions**
+4. Select **Attach**
+5. Choose EC2 instance
+6. Select device index
+
+Example:
+
+```
+Device index 0 → eth0
+Device index 1 → eth1
+```
+
+---
+
+## 9. Detach ENI from Instance
+
+Steps:
+
+1. Open EC2 Console
+2. Go to Network Interfaces
+3. Select interface
+4. Click **Actions**
+5. Click **Detach**
+
+Note:
+
+Primary interface **cannot be detached**.
+
+---
+
+## 10. Move ENI Between Instances
+
+Steps:
+
+```
+Instance A
+   │
+Detach ENI
+   │
+Attach to
+   │
+Instance B
+```
+
+Result:
+
+* Same private IP
+* Same security groups
+* Same network identity
+
+---
+
+## 11. ENI in High Availability Architecture
+
+Example:
+
+```
+Primary Instance
+      │
+      │ ENI
+      ▼
+   Network
+
+If instance fails
+
+Detach ENI
+Attach to
+Backup Instance
+```
+
+Application continues running with **same IP**.
+
+---
+
+## 12. ENI vs Private IP
+
+| Feature                | ENI | Private IP |
+| ---------------------- | --- | ---------- |
+| Virtual NIC            | Yes | No         |
+| Security Groups        | Yes | No         |
+| MAC Address            | Yes | No         |
+| Multiple IP Support    | Yes | Limited    |
+| Move Between Instances | Yes | No         |
+
+---
+
+## 13. Best Practices for ENI
+
+1. Use **secondary ENIs** for multi-tier architecture.
+2. Separate **public and private traffic** using different interfaces.
+3. Use **security groups carefully**.
+4. Use **secondary private IPs for applications**.
+5. Monitor ENIs using **CloudWatch**.
+
+---
+
+## 14. Example Architecture
+
+```
+                Internet
+                   │
+            Internet Gateway
+                   │
+             Public Subnet
+                   │
+                ENI 1
+                   │
+             Web Server EC2
+                   │
+                ENI 2
+                   │
+             Private Subnet
+                   │
+              Database EC2
+```
+
+---
+## AWS EC2 – Elastic Network Interface (ENI) Purpose
+---
+**Elastic Network Interface (ENI)** in **Amazon EC2** inside **Amazon Virtual Private Cloud** acts as a **virtual network card** that allows an EC2 instance to communicate with networks such as the internet, other instances, and internal services.
+
+The **main purpose of ENI** is to **control and manage network connectivity separately from the EC2 instance**.
+
+---
+
+# Main Purposes of ENI
+
+## 1. Network Connectivity for EC2 Instance
+
+The primary purpose of ENI is to provide **network communication** to an EC2 instance.
+
+Through ENI an instance gets:
+
+* Private IP address
+* Public IP or Elastic IP
+* Security groups
+* MAC address
+* Network traffic routing
+
+Example:
+
+```
+EC2 Instance
+     │
+     │ ENI
+     │
+VPC Network
+```
+
+Without ENI, an EC2 instance **cannot communicate with the network**.
+
+---
+
+## 2. Multiple Network Interfaces for One Instance
+
+ENI allows attaching **multiple network interfaces to a single instance**.
+
+Example:
+
+```
+EC2 Instance
+   │
+   ├── ENI-1 → Public Network
+   │
+   └── ENI-2 → Private Network
+```
+
+Purpose:
+
+* Separate **public traffic and private traffic**
+* Multi-tier architecture
+* Security isolation
+
+---
+
+## 3. Multiple IP Addresses on One Instance
+
+An ENI can hold **multiple private IP addresses**.
+
+Example:
+
+```
+ENI
+ │
+ ├── Primary IP → 10.0.1.10
+ ├── Secondary IP → 10.0.1.11
+ └── Secondary IP → 10.0.1.12
+```
+
+Purpose:
+
+* Hosting multiple applications
+* Running multiple websites
+* Container workloads
+* Failover IP switching
+
+---
+
+## 4. Security Control
+
+Each ENI can have **security groups** attached.
+
+Purpose:
+
+* Control inbound traffic
+* Control outbound traffic
+* Protect EC2 instance
+
+Example:
+
+| Port | Access |
+| ---- | ------ |
+| 22   | SSH    |
+| 80   | HTTP   |
+| 443  | HTTPS  |
+
+---
+
+## 5. High Availability and Failover
+
+ENI can be **detached from one instance and attached to another instance**.
+
+Purpose:
+
+* Disaster recovery
+* Failover systems
+* High availability
+
+Example:
+
+```
+Instance A (Failure)
+      │
+Detach ENI
+      │
+Attach
+      │
+Instance B
+```
+
+IP address remains **same**.
+
+Application continues working.
+
+---
+
+## 6. Network Appliances Architecture
+
+ENI is used in **firewalls, proxies, and security appliances**.
+
+Example architecture:
+
+```
+Internet
+   │
+Firewall Instance
+   │
+Private Server
+```
+
+Firewall instance uses **multiple ENIs**.
+
+Purpose:
+
+* Traffic inspection
+* Network filtering
+* Security monitoring
+
+---
+
+## 7. Separate Network Identity
+
+ENI maintains **network identity independent of the instance**.
+
+ENI stores:
+
+* Private IP
+* Elastic IP
+* Security groups
+* MAC address
+
+So even if instance changes, the **network identity remains same**.
+
+---
+
+# Simple Definition (Interview Answer)
+
+**Elastic Network Interface (ENI)** is a **virtual network card in AWS EC2 that provides network connectivity to instances and allows multiple IP addresses, security groups, and network interfaces to be managed independently from the instance.**
+
+---
+## Which IP is Used When We Do SSH to an EC2 Instance?
+
+When you connect to an instance using **SSH**, the IP address used depends on the **type of instance network access** in **Amazon EC2** inside **Amazon Virtual Private Cloud (VPC)**.
+
+There are two possible IP types:
+
+* **Public IP Address**
+* **Private IP Address**
+
+---
+
+# 1. SSH Using Public IP
+
+If the EC2 instance is in a **public subnet** and has a **public IP address**, SSH connection is done using the **public IP**.
+
+### Example
+
+Instance details:
+
+| Property   | Value        |
+| ---------- | ------------ |
+| Public IP  | 54.210.10.22 |
+| Private IP | 10.0.1.15    |
+
+SSH command:
+
+```bash
+ssh -i key.pem ec2-user@54.210.10.22
+```
+
+### How it works
+
+```
+Your Laptop
+     │
+Internet
+     │
+Public IP (54.210.10.22)
+     │
+EC2 Instance
+```
+
+This method is used when accessing the instance **from the internet**.
+
+---
+
+# 2. SSH Using Private IP
+
+If the EC2 instance is in a **private subnet**, it does not have a public IP.
+
+In this case, SSH is done using the **private IP** from another instance inside the same VPC.
+
+### Example
+
+Instance details:
+
+| Property   | Value     |
+| ---------- | --------- |
+| Private IP | 10.0.2.20 |
+
+SSH command:
+
+```bash
+ssh ec2-user@10.0.2.20
+```
+
+### Architecture
+
+```
+Public EC2 (Bastion Host)
+IP: 10.0.1.10
+        │
+        │ SSH
+        │
+Private EC2
+IP: 10.0.2.20
+```
+
+This is commonly used in **secure production architectures**.
+
+---
+
+# 3. Bastion Host Architecture (Common in DevOps)
+
+```
+Your Laptop
+     │
+SSH
+     │
+Public EC2 (Bastion Host)
+     │
+SSH using Private IP
+     │
+Private EC2 Server
+```
+
+Steps:
+
+1. SSH to public instance
+
+```bash
+ssh ec2-user@54.210.10.22
+```
+
+2. From that instance SSH to private instance
+
+```bash
+ssh ec2-user@10.0.2.20
+```
+
+---
+
+# 4. Summary
+
+| Scenario                  | IP Used                |
+| ------------------------- | ---------------------- |
+| SSH from Internet         | Public IP              |
+| SSH between EC2 instances | Private IP             |
+| Private subnet instance   | Private IP via Bastion |
+
+---
