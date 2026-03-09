@@ -551,6 +551,557 @@ Implemented using **cookies**.
 
 ---
 
+
+## 🎥 AWS Tutorials 
+
+**Path-Based Routing in Application Load Balancer (ALB)**
+
+This tutorial explains **Path-Based Routing** in **Application Load Balancer (ALB)**. It allows the load balancer to send requests to different backend services depending on the **URL path** in the request. ([OneUptime][1])
+
+Example:
+
+* `/api/*` → API servers
+* `/images/*` → image servers
+* `/admin/*` → admin service
+
+All requests can go through **one load balancer and one domain**, but they are routed to different applications. ([OneUptime][1])
+
+---
+
+# 📘 AWS Documentation – Path Based Routing (ALB)
+
+```markdown
+---
+
+# ☁️ AWS Documentation – Part 43
+## Path Based Routing in Application Load Balancer (ALB)
+
+---
+
+# 1️⃣ What is Path Based Routing
+
+Path-based routing is a feature of **Application Load Balancer (ALB)** that routes requests to different backend services depending on the **URL path**.
+
+Example URL:
+
+example.com/api
+example.com/images
+example.com/admin
+
+Each path can go to different EC2 instances or services.
+
+This is also called **URL-based routing**.
+
+---
+
+# 2️⃣ Why Path Based Routing is Used
+
+Benefits:
+
+- Host multiple applications behind one load balancer
+- Support microservices architecture
+- Efficient traffic management
+- Reduce infrastructure cost
+- Simplify architecture
+
+Example:
+
+Single Domain
+
+example.com
+
+Routing:
+
+/api → API service  
+/images → Image server  
+/app → Web application
+
+---
+
+# 3️⃣ How Path Based Routing Works
+
+Architecture:
+
+Client Request
+↓
+Application Load Balancer
+↓
+Listener Rules
+↓
+Target Group
+↓
+EC2 Instances
+
+The load balancer checks **listener rules** and forwards the request to the correct **target group**.
+
+---
+
+# 4️⃣ Example Routing
+
+Example rules:
+
+Rule 1
+
+Path: /api/*  
+Target Group: API-Servers
+
+Rule 2
+
+Path: /images/*  
+Target Group: Image-Servers
+
+Rule 3
+
+Path: /admin/*  
+Target Group: Admin-Servers
+
+Default rule:
+
+All other traffic → Web server
+
+---
+
+# 5️⃣ Components Required
+
+To configure path-based routing you need:
+
+1. Application Load Balancer
+2. Listener (HTTP / HTTPS)
+3. Target Groups
+4. EC2 Instances
+5. Listener Rules
+
+---
+
+# 6️⃣ Target Group Concept
+
+Target groups contain backend servers.
+
+Example:
+
+Target Group 1 → API Servers  
+Target Group 2 → Image Servers  
+Target Group 3 → Web Servers
+
+Load balancer sends traffic to the correct group based on rules.
+
+---
+
+# 7️⃣ Listener Rules
+
+Listener rules define **how traffic is routed**.
+
+Each rule contains:
+
+- Condition
+- Action
+- Priority
+
+Example rule:
+
+Condition → Path = /api/*  
+Action → Forward to API target group
+
+---
+
+# 8️⃣ Example Architecture
+
+User Request
+
+example.com/api/users
+
+↓
+
+Application Load Balancer
+
+↓
+
+Rule matched: /api/*
+
+↓
+
+Target Group (API Servers)
+
+↓
+
+EC2 Instance
+
+---
+
+# 9️⃣ Steps to Configure Path Based Routing
+
+Step 1
+
+Launch EC2 instances.
+
+Example:
+
+Instance 1 → API server  
+Instance 2 → Image server
+
+---
+
+Step 2
+
+Create target groups.
+
+Example:
+
+API-TG  
+Image-TG
+
+Register EC2 instances in target groups.
+
+---
+
+Step 3
+
+Create Application Load Balancer.
+
+Configure:
+
+- VPC
+- Subnets
+- Security Groups
+
+---
+
+Step 4
+
+Add Listener (HTTP/HTTPS).
+
+Example:
+
+HTTP → Port 80
+
+---
+
+Step 5
+
+Create Listener Rules.
+
+Example:
+
+/api/* → API Target Group  
+/images/* → Image Target Group
+
+---
+
+Step 6
+
+Save and test.
+
+Example URL:
+
+http://ALB-DNS/api  
+http://ALB-DNS/images
+
+Traffic will route to different servers.
+
+---
+
+# 🔟 Real World Use Case
+
+Microservices Architecture
+
+Single domain:
+
+example.com
+
+Services:
+
+/auth → Authentication service  
+/payment → Payment service  
+/orders → Order service
+
+All services run on different servers but are accessed through one load balancer.
+
+---
+
+# 1️⃣1️⃣ Key Advantages
+
+Advantages:
+
+- Efficient traffic routing
+- Supports microservices
+- Reduces infrastructure complexity
+- Improves scalability
+- Cost efficient
+
+---
+
+# 1️⃣2️⃣ Important Notes
+
+Path-based routing works only with:
+
+Application Load Balancer (ALB)
+
+It works at:
+
+OSI Layer 7 (Application Layer)
+
+Other load balancers like NLB mainly route based on IP or port.
+
+---
+
+---
+
+## Get Client IP Address Behind Application Load Balancer
+
+---
+
+# 1️⃣ Problem: Client IP Not Visible on Server
+
+Architecture:
+
+Client
+ ↓
+Application Load Balancer
+ ↓
+EC2 / Web Server
+
+When a request reaches the server:
+
+Server sees → Load Balancer IP
+
+Reason:
+
+Application Load Balancer terminates the TCP connection and creates a new connection to backend servers.
+
+Therefore the backend server cannot directly see the client’s IP address.
+
+---
+
+# 2️⃣ Solution: X-Forwarded-For Header
+
+ALB adds an HTTP header called:
+
+X-Forwarded-For
+
+This header stores the **original client IP address**.
+
+Example HTTP Header:
+
+X-Forwarded-For: 203.0.113.7
+
+If multiple proxies exist:
+
+X-Forwarded-For: clientIP, proxy1, proxy2
+
+The **first IP (left-most)** is usually the real client IP.
+
+---
+
+# 3️⃣ Request Flow Example
+
+User Request:
+
+User → http://example.com
+
+Network Flow:
+
+Client
+ ↓
+Application Load Balancer
+ ↓
+EC2 Instance
+
+HTTP request received by EC2:
+
+GET /index.html HTTP/1.1
+Host: example.com
+X-Forwarded-For: 203.0.113.7
+
+Now the application server can read the header to identify the real client IP.
+
+---
+
+# 4️⃣ Practical Demo Architecture
+
+Example Setup:
+
+Internet
+ ↓
+Application Load Balancer
+ ↓
+EC2 Instance (Apache / Nginx)
+
+Goal:
+
+Print client IP on webpage.
+
+---
+
+# 5️⃣ Step 1 – Launch EC2 Instance
+
+Launch Linux instance.
+
+Install web server.
+
+Example (Amazon Linux):
+
+sudo yum update -y
+sudo yum install httpd -y
+
+Start Apache:
+
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+---
+
+# 6️⃣ Step 2 – Create Application Load Balancer
+
+Go to:
+
+EC2 Console → Load Balancers
+
+Create:
+
+Application Load Balancer
+
+Configuration:
+
+Type → Internet Facing  
+Protocol → HTTP (80)
+
+Select:
+
+VPC  
+Subnets
+
+---
+
+# 7️⃣ Step 3 – Create Target Group
+
+Target Type:
+
+Instances
+
+Register EC2 instance.
+
+Health Check Path:
+
+/
+
+---
+
+# 8️⃣ Step 4 – Access Server Through ALB
+
+Open:
+
+http://ALB-DNS-Name
+
+Now traffic flow becomes:
+
+Client → ALB → EC2
+
+---
+
+# 9️⃣ Step 5 – Capture Client IP (Apache)
+
+Edit Apache config:
+
+sudo nano /etc/httpd/conf/httpd.conf
+
+Modify LogFormat:
+
+LogFormat "%{X-Forwarded-For}i %h %l %u %t \"%r\" %>s %b" combined
+
+Reload Apache:
+
+sudo systemctl restart httpd
+
+Now Apache logs will contain real client IP.
+
+---
+
+# 🔟 Capture Client IP (Nginx)
+
+Edit nginx.conf:
+
+sudo nano /etc/nginx/nginx.conf
+
+Add:
+
+log_format main '$http_x_forwarded_for - $remote_user [$time_local] "$request"';
+
+Restart nginx:
+
+sudo systemctl restart nginx
+
+---
+
+# 1️⃣1️⃣ ALB Header Processing Modes
+
+ALB supports 3 modes for X-Forwarded-For header.
+
+Append (Default)
+Adds client IP to header.
+
+Preserve
+Leaves header unchanged.
+
+Remove
+Removes header completely.
+
+Default:
+
+append
+
+---
+
+# 1️⃣2️⃣ Real Example Header
+
+Request received by server:
+
+GET /api HTTP/1.1
+Host: example.com
+X-Forwarded-For: 203.0.113.7
+X-Forwarded-Proto: https
+
+Meaning:
+
+Client IP → 203.0.113.7  
+Protocol → HTTPS
+
+---
+
+# 1️⃣3️⃣ Why Client IP is Important
+
+Client IP is required for:
+
+Security
+Rate limiting
+Geo location
+Access control
+Logging
+Debugging
+
+Example:
+
+Block malicious IP addresses.
+
+---
+
+# 1️⃣4️⃣ Real Production Architecture
+
+User
+ ↓
+CloudFront
+ ↓
+Application Load Balancer
+ ↓
+EC2 / Containers
+ ↓
+Application
+
+Client IP preserved using:
+
+X-Forwarded-For header
+
+---
+
 # 15. AWS Auto Scaling
 
 ---
