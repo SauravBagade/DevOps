@@ -1,11 +1,6 @@
-![Image](https://miro.medium.com/v2/resize%3Afit%3A606/1%2Ag0nXaB6JIkg5InN3_UgOOA.png)
-
-![Image](https://miro.medium.com/v2/resize%3Afit%3A1200/1%2AlligEQRC9JD65HoTROBLeQ.png)
-
-![Image](https://www.devopsschool.com/blog/wp-content/uploads/2023/04/terraform-workflow-1-1024x512.jpg)
-
+---
 # 📌 1️⃣ Terraform Introduction (Foundation)
-
+---
 This section explains **Terraform from zero level**, exactly like **official documentation**, but in **simple DevOps language** with **real-world meaning**.
 
 ---
