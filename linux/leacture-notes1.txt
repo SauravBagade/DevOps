@@ -1,0 +1,1681 @@
+linux ---------------
+Day -1
+
+labex - username hostname currentDirectory user
+ubuntu ex. root@hostname:\$
+# sign for super user / root user
+$Normal user
+
+terminal information:-
+1)- pwd - present working directory - show path
+2)- whoami - Displays the current logged-in user
+3)- hostname - machine Name
+4)-who am i - List the uers with log
+5)-w  - detail user info
+6)- tty - (teletype) which terminal you are corrently using
+7)- w  detailed information about users currently logged
+9)- exit to reconnect 
+10)- clear - clear the terminal (ctrl + L)
+
+how commands creates 
+root@user:home/$: <command> space <Flag> space <Argument>
+
+command:- Application
+Flag :- behaviour of command ex. ( -l , --l) , (optional)
+argument ;- additional data to run the command (optional)
+ 
+ex - ls -l home/cat 
+
+
+System information:- 
+
+1)- lscpu -  Display CPU Architecture Information
+
+2)-free - to check avaiable ram(in KB) (default)
+     free -k show in KB
+     free -m to show in MB
+     free -g to show in GB
+     free -h to show with sign like (15Gi)
+
+3)- uname - to check the kernel 
+
+4)-uname -a - to check detailed info of a kernel
+
+5)- uname -r :- to check the kernel version in number
+      uname  -v :- to chek the kernel version in name
+
+6)- cat /etc/os-release - info of os 
+   command - cat 
+   flag - not flag here ex . (-l , --l , -la(something) )
+   argument - /etc/os-relase (longer in lenth)
+
+
+general commands :- 
+
+1)- clear - clear the terminal 
+2)- history - check the history of a commands
+3)- date - to chek the date
+4)- date -s " 13 Feb 2024 21:30 "
+5)- man - used for linux command help
+
+
+to turn of the server 
+1)- shutdown - turn of the server after 1 min
+2)- shutdown now  - turn of the server imediately
+3)- poweroff
+4)- logout - to logout from existing user
+5)- exit - to exit from existing user
+6)- reboot - to reboot the server
+
+
+
+
+
+
+notes_text = """
+Linux Lecture Notes
+===================
+
+Linux Basics
+------------
+
+Lab Setup
+---------
+- Prompt Structure (Ubuntu):  
+  root@hostname:$
+  - # sign indicates super user or root user
+  - $ sign indicates regular user
+
+- Command Format:
+  root@user:/home/$ <command> <flag> <argument>
+
+  - Command – Application or tool being used
+  - Flag – Modifies the behavior of a command (e.g., -l, --help) (optional)
+  - Argument – Additional data or input required for the command (optional)
+  - Example:
+    ls -l /home/cat
+
+Terminal Information Commands
+-----------------------------
+| Command       | Description                                |
+|---------------|--------------------------------------------|
+| pwd           | Show Present Working Directory             |
+| whoami        | Show currently logged-in user              |
+| hostname      | Display the machine name                   |
+| who am i      | Show logged-in users (you + others)        |
+| w             | Detailed user login info                   |
+| tty           | (teletype) Show terminal type                         |
+| exit          | Logout or close terminal session           |
+| clear         | Clear the terminal (Ctrl + L)              |
+
+System Information Commands
+---------------------------
+| Command             | Description                                      |
+|---------------------|--------------------------------------------------|
+| lscpu               | Check CPU architecture and core info            |
+| free                | Show available RAM in KB (default)              |
+| free -k / -m / -g / -h | Show RAM in KB / MB / GB / Human-readable     |
+| uname               | Check system info (default: kernel name)        |
+| uname -a            | All system/kernel info                          |
+| uname -r / -v       | Kernel version (number / name)                  |
+| cat /etc/os-release | Show Operating System details                   |
+
+Command Structure Example:
+- cat → Command
+- (No flag used)
+- /etc/os-release → Argument (file path)
+
+General Commands
+----------------
+| Command                   | Description                              |
+|---------------------------|------------------------------------------|
+| clear                     | Clear the terminal                       |
+| history                   | Show command history                     |
+| date                      | Show current date and time               |
+| date -s "13 Feb 2024 21:30"| Set system date and time                |
+| man <command>             | Show manual/help for the command         |
+
+Server Shutdown / Logout Commands
+---------------------------------
+| Command         | Description                                     |
+|------------------|-------------------------------------------------|
+| shutdown         | Shutdown server after 1 minute (default)        |
+| shutdown now     | Shutdown server immediately                     |
+| poweroff         | Power off the machine                           |
+| logout           | Logout current user session                     |
+| exit             | Exit from current shell session                 |
+| reboot           | Restart/reboot the server                       |
+"""
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+Day 2
+
+median - for day to day tech related blogs
+statckoverflow - for error handling
+
+why should we hire you devops engineer - HomeWork
+
+touch abc.txt  --- used to create Empty file
+
+touch xyz{1..10} -- used to create multiple txt file from xyz1..to xyz10
+
+cat > abc.txt --- used to write content in the file CTRL+D to exit 
+
+cat abc.txt --- to print file content 
+
+mkdir dirName --- used to create directory 
+
+mkdir dirName{1..10} --- used to create multiple dir from dirName1 .. to dirName10
+
+cd nilesh  ---> change directory 
+
+cd .. --> one step back 
+
+cd ../.. ---> two step back
+
+mkdir nilesh/class/student --- create dir student inside sub directory
+
+rm filename -- > used to delete file 
+
+rm xyz{1..5} -- > remove multiple files 
+
+rm -v xyz{6..10} --> 
+
+rm -r ---> remove recorsivly
+rm -f ---> remove  forecfully
+
+rmdir dirName --> used to delete 
+
+rmdir dirName{1..10} --> remove dirName1  to dirName10
+
+rm -rvf dirName     -- > used to delete dir that have some content
+-r → recursively
+
+-
+-v → verbose output
+
+-
+-f → force deletion
+
+
+
+cat > fileName --> directly create file with content
+
+rm -rvf * or rm -r * --- > used to remove all files and dir from current dir 
+----------------------------------------------------------------
+
+day 3 
+
+cp abc.txt doc/ - copy abc.txt file  and past in doc/
+ls -l doc - check content of doc without changing path
+mv xyz.txt  doc/ - move file from 1 dir to another dir
+mv xyz.txt rohit.txt - to rename file from xyz to rohit.txt
+
+homework 
+
+cp hello.txt{1..10} path -- how to copy multiple files to another location
+
+cp /path/to/source/filename.txt /path/to/destination/newName.txt --- copy file from one place to another with change name 
+
+
+cd / --to go root directory which is (/)
+
+linux root directory info 
+
+bin -- to store binaries (local , root user)
+boot -- to store boting files
+dev -- device related files
+etc --config files
+home -- creation for local users
+lib -- to store libraries
+media - permanent mount for storage
+mnt -   --tempory mount for storage
+opt --for add-ons/third party apps
+proc --info about current runnign process
+root- creations for super user
+run -- temporary system info used during boot or login
+sbin - store system binaries (root user)
+srv - service relaed files
+sys - system files
+temp - templory files
+usr - user relaeted files
+var - variables and log's
+lib64  - to store shared libraries
+
+-------------------------------------------------------------------
+/ (Root) :- The Top level directory in linux. Everything starts from here
+
+Common System Directories:
+
+*1)- /bin - Basic Command programs used by everyone (like ls,cp,echo). (stores local ,root user binaries)
+*2)- /boot - Files needed to start (boot) your system -- like the linux kernel
+*3)- /dev - Represents devices like hard disks, USBs, etc as files
+*4)-/etc - configuration files for the system and software
+*5)-/home-Each normal user gets a folder here(e.g /home/nilesh)
+*5)- /lib - Needed libraries for programs in /bin and /sbin
+6)-/media - Used to mount USBs, CDs
+7)-/mnt - Templorary place to mount storage manually
+8)-/opt - for optional software or third-party apps.
+*9)-proc - Gives real-time info about running processes and system(virtual)
+*10)-root - Home folder of the root (admin) user. Not same as /
+11)-run - stores temporary system info used during boot or login
+*12)-/sbin - system admin programs used mostly by the root user (stores root user binaries only)
+13)- /srv - for data related to services like websites or FTP(rarely used)
+14)-/sys - info about hardware and system devices
+*15)-/tmp - folders to store temporary files (cleared on reboot)
+*16)-/usr - programs and files for regular users
+*17)-/var - stores logs, emails, print jobs, etc (changes often - variable data)
+*18)- /bin64 - same as /lib but for 64 bit system libraries
+
+
+--------------------------------------------------------------------------------------------------
+Day 4
+
+Introduction to linux editiors 
+Note :- both vi and vim having the same command pattern
+
+1)- vim - default
+ 
+2)- vi   - default but in older versions 
+
+3)-nano
+
+4)-pica
+
+1)- vim 
+
+Modes:- 
+
+* how to save & exit and exit without save 
+
+1)-press i to go in insert mode 
+
+2)- ESC + :w - saving the changes
+ESC :- exit from insert mode or any other mode
+
+3)- ESC + :wq -  for save and exit
+
+4)- ESC +  :q!- for exit without saving
+
+
+1)- command mode:-
+
+yy - yanked a line (copy the current  line) - without pressing i
+(go to the line that you want to copy and press yy it will copy )
+
+p - paste the copied line below
+
+u - undo
+(remove pasted lines)
+
+'n'yy -(n)number of lines - used to copy multiple lines 
+ex 5yy to copy five lines
+
+yw - to copy word under the cursor 
+
+'n'yw - to copy multiple words/ and
+ n for number of words
+ 
+dd - to delete the current line
+
+'n'dd - to delete multiple lines/ n is no.of lines
+
+dw -  to delete a word
+
+'n'dw - to delete multiple words/n is no.of words
+
+gg - to go the top of the line 
+
+G - to go the bottom of the line
+
+H - top of the line which is visible of screen
+
+L - bottom of the line which is visible of screen
+
+M - Middle of the line which is visible of screen
+
+/word  - to find the word in file
+
+----------------------------------------------------------------------------------------------------
+Day 5 
+
+
+2)- Insert mode :- 
+
+i - insert before cursor
+
+I- Insert at the beginning of line
+
+a - Append after cursor 
+
+A - Append at the new line
+
+o - Open a new line below
+
+O - open a new line above 
+
+ESC - exit insert mode to normal mode
+
+
+
+3)- visual mode
+
+v - start visual mode(character - wise)
+
+V - start visual line mode
+
+ctrl + v - visual block mode (colume select)
+
+y - copy p - paste d - delete
+
+> and <  indent and unindenet selection
+
+ESC - exit visual mode
+
+
+4)- execute mode (Command line Mode)
+
+enter by typing : from normal mode(command mode)
+
+:w - save file
+
+:q - Quit
+
+:wq  / ZZ - save & Quit
+
+ :q! - Quit without saving
+
+:x - save and quit (only if chnages were made)
+
+:e filename - Open another file 
+
+:set number - show line numbers
+
+:set nonumber - hide line numbers
+
+:%s/old/new/g - Replace old with new 
+
+:noh :- clear search highlight
+
+
+----------------------------------------------------------------------------------------
+
+Day 6 
+
+User Management : - 
+
+why we need user and what is user
+
+1)-local user - limited access , have $ sign , have home directories , he can access take commands from /bin
+UID range(1000 - 60,000)
+
+2)- super user - linux admin , # sign ,  full access , /bin and /sbin default root user , root user does not have super user , super user UID(0-499)
+
+3)- system/service user - perform for perticular service or system 
+UID range (500-999)
+
+sudo -i / sudo su - to switch to root user
+
+ ->useradd / adduser -m <name of the user> - to create a user
+
+-> passwd username - set new passwd
+
+-> su - rohit - switch user 
+ - does not need passwd while in root user
+
+when a user created files which modifies 
+1)- /etc/passwd - contains userDetails
+2)- /etc/shadow - contains passwd details
+3)-/etc/group - group details
+4)- /etc/gshadow - contains group details along with passwd and admin  (which user is added to which group)
+4)- also change in home directory 
+
+ls /home - to check user directory
+
+tail -n 4 /etc/passwd - to read last 4 lines of a passwd file  
+
+what is group and why we need it 
+
+groupadd groupname -  create a group 
+
+gpasswd -a username groupname - add new user to group 
+
+to varifiy the changes
+1)- cat  or less  /etc/passwd
+2)- tail -n 4 /etc/passwd or shadow or gshadow
+
+
+.bashrc , bashlogout , .bashprofile , .profile  -- these are skeleton files for user creation 
+/etc/skil - copyed files 
+
+how to check nilesh user hidden files
+ su -  nilesh
+passwd : -enter password
+ls -a - show hidden files 
+
+how to hide a file 
+add .filename to hide
+
+how to unhide a file 
+mv .filename filename
+
+-------------------------------------------------------------------
+
+sudo su - switch to root user
+
+useradd  -m username - to add user
+passwd username - to set passwd
+userdel -r username - remove user along with everything 
+
+how to check user is created 
+1)- cat /etc/passwd 
+2)- tail -n 4 /etc/passwd or shadow or gshadow or group
+
+groupadd  groupname - to create a group
+groupdel groupname - to delete a group
+ 
+gpasswd -a username groupname - add user to the group 
+gpasswd -d username groupname - remove user from the group
+
+
+
+-------------------------------------------------------
+
+day 7
+
+breakdown /passwd file fields 
+
+rohit : x : 5001 :5001 ::/home/rohit:/bin/sh
+
+rohit - username
+x - link to password (not created here)
+5001 - uid
+5001 - gid
+:: - comment can be anyting useraddress , number etc
+/home/rohit - directory
+/bin/sh - shell type
+
+# how to create fully customized user 
+
+sudo useradd -u 2000 -g 5000 -c "hello world" -m  -d /home/cloud -s /bin/zsh pratik 
+
+#how to switch user 
+sudo su - nilesh
+
+# how to modify existing user
+usermod <flag> username
+
+# how to check the shell 
+echo $SHELL
+
+#how to retrieve user access
+usermod -L aditya -s /sbin/nologin
+
+# how to change username
+usermod -l newName oldName
+
+# breakdown etc/shadow file fields
+
+labex:
+$y$j9T$zAexAVNiLJRMPZEVBa2Rz1$.P6BUloGyU50Vy5whqs6YTPZdZYs2wb.jGOOMi/hd86:
+20201:
+0:
+99999:
+7:
+:
+:
+
+1)- username  useradd
+2)- encrypted password - passwd
+3)- Last password change -  days count from 1Jan 1970 till last password change (chage -D)
+4)- minimum days to change the password   chage  -m
+5)- max days to change the password  chage -M
+6)- warning days chage -W
+7)- date of expiry (Inactive period)  chage -E
+8)- future use chage -F
+
+# how to change minium days 
+chage -m 2 abc (abc is user)
+
+# how to chnage max days
+chage -M 2 abc
+
+chage -M 2 -W 10 -E "13FEB 2026" abc
+
+
+# when ever user login he have to change passwd
+chage -d 0 -m 0 -M 0 abc (abc is user)
+
+#
+sudo usermod -l newName oldName - rename user
+sudo passwd username  - change or set password
+
+------------------------------------------------------------------
+
+IMP :- always remember file details it ask in interview
+
+Day 8
+ exploring /etc/group file in detail
+
+dev:x : 5003: rohit
+1)- groupname
+2)- linked to password 
+3)- gid 
+4)- user list 
+
+
+#how to change groupid
+sudo su -> groupmod -g 3000 dev
+
+# how to set group password
+gpasswd dev
+
+
+explore /etc/gshadow fields
+
+ dev : Encripted passwd : admin : rohit , bhushan
+
+1)- groupName
+2)-EncriptedPasswd
+3)- admin
+4)- userlist
+
+#how to add admin in group
+1)- create a user first 
+ useradd -m aditya
+2)- gpasswd -A aditya dev (-a for normal user -A for admin user)
+ - admin have authority to add and remove user from group
+
+# how to add member in a group through admin
+1)- useradd -m pratik
+2)- gpasswd -a pratik dev
+
+# how to remove user from group 
+gpasswd -d bhushan dev
+
+#how to delete a user
+userdel username
+userdel -r username - to remove user + directory
+
+# how to delete a group
+groupdel groupname
+
+
+---------------------------------------------------------------------
+Day -9 
+file permission in linux
+permissions - allowing and dynying the permission
+
+read (r) - 4 
+write (w) - 2
+execute (x) - 1
+no-permission (-) - 0
+
+
+-rw-rw-r-- 1 labex labex 0 Apr 25 21:29 hello.txt1
+
+- - file type
+rw-rw-r-- - permission
+1- Link count
+labex  labex - ownership labex(user) labex(group)
+0 - file size
+apr 25 21:29 - timestamp
+hello.txt1 - filename
+
+
+file type
+
+1)- user defined files
+ types 
+1)- directory (d) 
+2)- file (-) 
+3)- Linked file (l)
+
+2)- system defined files
+ types
+1)- block device file(b)
+2)- character device file (c)
+3)- pipe file (p)
+4)- socket device file (s)
+
+permission modes:-
+
+why linux files does not have execute permission ??
+
+ rw-             rw-           r--
+(owner) (group) (other)
+  (u)              (g)          (o)
+
+
+chown username filename - to change ownership of a file
+
+chgrp groupname filename - to change group of a file
+
+
+add(+) remove(-) set(=)
+
+chmod o+w /opt/practice
+
+
+homework :- 
+
+1)- create a new user named natasha.
+2)- Add natasha to a group called dev
+3)- first , as the root user , create a file in /opt/practice.
+ 4)- then , switch to natasha (in another terminal ), and try to create a file in same folder .
+5)- you'll see an error because natasha dosen't have permissions.
+6)- Go back to the root user and give the dev group permission to that folder
+7)- now check any user like natasha which is in dev group abe to create a file this time .
+
+1)- create a user named natasha 
+sudo useradd -m natasha
+sudo passwd natasha
+2)-  add natasha to group dev
+sudo groupadd dev
+sudo usermod -a natasha dev
+3)-switch to root user and create a folder and a file
+sudo mkdir -p /opt/practice
+sudo touch /opt/practice/file1.txt
+4)-switch users and Test file creation
+as a root --> touch /opt/practice/root_file.txt -->it works
+as a natasha-->touch /opt/practice/natasha.txt --> not works
+why , natasha doesn't have permission to write in that dir.
+5)- give permission to dev
+sudo chgrp dev /opt/practice --> change group to dev
+	or
+sudo chown root:dev /opt/practice -- >change group to dev
+sudo chmod g+w /opt/practice --> only root and dev can write here
+6)- try again as natasha
+  su - natasha
+newgrp dev (session update of a group dev ) --->  touch /opt/practice/natasha.txt  -- > it works this time
+
+-----------------------------------------------------------------------------------
+day 10 
+
+
+permission models
+r - 4
+w -2 
+x -1 
+- - 0
+-------------------------------------------------------------------
+HardLink Vs Soft Link
+Linked File 
+types of link 
+1)- hardlink 2)- symbolic link(soft link)
+
+1)- hardlink
+syntax:-  ln  source destination
+- A hard link is an exact copy of a file that points directly to the same data (inode).
+- If the original file is deleted, the hard link still works.
+- inode number is same 
+
+2)- Symbolic Link (soft link)
+Syntax:- ln -s source destination
+- A soft link is a shortcut that points to the filename/path of another file.
+- if the original file is deleted the soft link breaks.
+- inode number is diffrent
+
+
+Why data is not deleted when original file is deleted (in hard link)?
+Because:
+
+ - In Linux, data is deleted only when the inode's reference count becomes zero.
+
+ - 
+Each hard link increases the reference count of the inode.
+
+
+  - If you delete one name (file), the inode still has other names pointing to it.
+
+Only when all hard links are deleted, the reference count drops to 0, and then Linux deletes the actual data.
+
+#how to check inode 
+ls -i or ls -li or ls -li /path/of/file
+
+HardLink Vs Soft Link 
+
+Feature			Hard Link			Soft Link
+
+Points to			File's data (inode)		File name/path
+
+Works if original is deleted	✅ Yes			❌ No 
+(breaks)
+Different inode?	❌ No			✅ Yes
+
+Can link directories?	❌ No			✅ Yes
+
+Across filesystems?		❌ No			✅ Yes
+
+
+
+How to create a hardlink
+su -i
+mkdir -p /opt/cloud/rain/drop
+cd /opt/cloud/rain/drop
+touch file.txt
+ln /opt/cloud/rain/drop/file.txt  /home/abc
+  ln   <source of file >  <destination address>
+cat > file.txt
+Hii ctrl +d to save
+cd /home
+ls
+cat abc
+ls -in how to check inode
+ls -in /opt/cloud/rain/drop/file.txt  --> same inode number 
+
+rm /opt/cloud/rain/drop/file.txt 
+original file is deleted but hardlink is not delete because hardlink is used for backup purpose
+
+
+soft link 
+
+touch /opt/cloud/rain/drop/rohit.txt
+vim /opt/cloud/rain/drop/rohit.txt   
+
+ln -s /opt/cloud/rain/drop/rohit  /home
+ls -l /home
+cat /home/rohit
+
+changes in the rohit will refelect in link as well
+changes in the link will refelect in original file as well 
+
+ls -i /opt/clodu/rain/drop/rohit - to check inode number
+ls -i /home/rohit - 
+inode number is chage in softlink where as inode number is same in hardlink 
+
+
+how to delete a link 
+rm path
+
+---------------------------------------------------
+how to create a hardlink 
+
+1)- mkdir -p /opt/cloud/rain/drop # create directories
+2)- vim  /opt/cloud/rain/drop/abc # create a file
+3)- ln /opt/cloud/rain/drop/abc /home/abc #creating hardlink
+4)- cd 
+5)- ls -l /home
+6)- cat /home/abc
+7)- ls -li /opt/cloud/rain/drop/abc - #check inode and list of files
+8)- ls -li /home/abc - to check inode of hardlink (Both Must Be Same , Original File update or hardlink file update then updated content will refelect in each files , inodes are dirrent in hardlink because it store file in another block of storage)
+
+9)- rm /opt/cloud/rain/drop/abc 
+10)- ls -l /home
+---------------------------
+
+How to create a softlink 
+1)- mkdir -p /opt/d1/d2/d3 # create dir
+2)- touch /opt/d1/d2/d3/file1.txt # create file
+3)- ln -s /opt/d1/d2/d3/file1.txt  /home/file1_soft.txt # create a soft link 
+4)- ls -li /home/file1_soft.txt  #check i node shortcut
+5)- ls -li /opt/d1/d2/d3/file1.txt # check i node of original file
+(both must be not same) 
+
+6)- rm -r /opt/d1
+7) - rm /home/file1_soft.txt
+----------------------------------------------------------------------------------
+
+create a user using root and again create a user using created user but it not work then update user in /etc/sudoers file and again try to create a user
+
+sudo -i
+useradd -m rohit
+su - rohit
+passwd rohit
+	provide a passwd
+su - rohit
+sudo  useradd -m prarag 
+error rohit is not a sudoers file. this incident will be reported.
+sudoes - user have permission to use sudo 
+ where to find the error file
+vim  /etc/sudoeres
+add a user in this fil in
+# user previlage specification
+
+now create user --> it works
+
+------------------------------------------------------------------------
+structured approach
+#################
+
+root --> rohit --> nilesh-----> mahesh
+#switch to root user
+su -i 
+#add a new user rohit
+useradd -m rohit
+passwd rohit
+
+#provide sudo permission to user rohit
+A)-vim /etc/sudoers   -- > add user in user previlage specification -----> rohit ALL(ALL:ALL)ALL---->  :wq!  to exit
+
+B) -usermod -aG sudo rohit
+
+#now user is added in sudoers now rohit is able to use sudo
+
+su - rohit
+sudo useradd -m nilesh
+
+done
+
+#change owner of a file  
+chown username filename
+#change group of a file 
+chgrp groupname filename
+
+----------------------------------------------------------------------------------------
+Next Day
+
+tar  command
+
+packaning
+to reduce file size
+to share
+backup
+
+du -sh -(du disk usage ) used to check file size
+ 
+compress a file or dir 
+sudo -i
+du -sh /etc  - etc file size
+tar -cvf /home/etc.tar /etc    - creating a backup of etc file
+ls /home
+du -sh /home/etc.tar
+
+--------------------------------------------
+create a backup of /opt file
+du -sh /opt --> 249 M
+tar -cvf /mnt/opt_backup.tar /opt
+du -sh /mnt/opt_backup.tar  ----> 248M
+
+create a backup of /etc file
+du -sh /etc ---> 840M
+tar -cvf /home/etc_backup /etc  # create a backup of /etc file
+du -sh /home/etc_backup.tar ---> 838
+
+# extract the tar file
+tar -xvf /home/etc_backup.tar /home/etc
+
+# how to extract  a file 
+
+
+compress     decompress	flags   extraction time
+gzip	     gunzip		-z         low,fast - 80mb  
+bzip2	     bunzip2	-j        medium  medium - 50mb
+xz	     unxz		-J      fast , low - 30mb
+
+# compress 
+gzip /home/etc_backup.tar 
+output - etc_backup.tar.gz
+
+bzip2 /home/etc_backup.tar.gz
+output - etc_backup.tar.gz.bz2
+
+xz etc.tar
+etc.tar.xz
+
+#decompress
+
+bunzip2 etc.tar.gz.bz2
+output - etc.tar.gz
+
+gunzip etc.tar.gz
+output - etc.tar
+
+tar -xvf /home/etc.tar
+etc
+
+tar -xf /home/etc.tar -C /opt
+
+
+-----------------------------
+task 
+1)- create tar file  --> and check file size du -sh 
+tar -cvf /home/opt.tar /tar
+2)- gzip tar file file ---> check the size
+gzip opt.tar
+3)- gunzip gziped file ---> check the size
+gunzip opt.tar.gz
+4)- de'tar the file ----> check the size
+tar -xf opt.tar
+
+
+# archieve and zip 
+tar -czf /home/opt_backup.tar.gz /opt
+output - opt_backup.tar.gz
+
+
+=======================================
+#archive
+tar -cvf /home/etc.tar /etc
+output - etc.tar
+#extract 
+tar -xvf  etc.tar
+output - etc 
+=======================================
+#gzip and gunzip 
+gzip 
+gzip etc.tar 
+output - etc.tar.gz
+--------------------------
+gunzip 
+gunzip etc.tar.gz
+output - etc.tar
+-------------------------
+
+#bzip2 and bunzip2 
+bzip2
+bzip2 etc.tar
+output - etc.tar.bz2
+---------------------------
+bunzip2 etc.tar.bz2
+output - etc.tar
+------------------------------
+
+#xz and unxz 
+xz etc.tar
+output - etc.tar.xz
+-------------------------------
+#unxz etc.tar.xz
+output - etc.tar 
+-------------------------------
+
+#archive with zip 
+tar -czf /home/etc_backup.tar.gz /etc
+
+#extract with unzip 
+tar -xzf /home/etc_backup.tar.gz
+
+# how to extract tar file in another directory (-C)
+tar -xvf /home/file_gzbackup.tar.gz -C /home/labex/project
+
+===========================================
+cronjob - used for automation
+scheduled job
+
+su -i
+
+apt update - update the system
+ 
+apt install cron  - install cron in the system 
+
+service cron start (start the cron for labex)
+
+fields of cron
+
+select vim editor
+crontab -e - to open crontab in editor
+3  for vim editor
+
+crontab -l - to list cronjobs
+crontab -r  - to remove all cronjobs
+
+/ - for repeative task
+m - minute 0 - 59
+h - hour 0 -23
+dom date of month - 1-31
+mon - months - 1-12 jan -dec
+dow - day of week  - 1-7 sun - sat 
+command - <Full path of command> <argument>
+
+Examples of Cron Job Scheduling
+
+
+1)- Run a command every minute
+
+       * * * * * /path/to/command
+
+
+2)-Run a command at 5:30 AM every day
+       30 5  * * * /path/to/command
+
+
+3)-Run a command at 2:00 PM every Monday
+       0 14 * * 1 /path/to/command
+
+
+4)- Run a command on the 1st and 15th of every month at 8 AM:
+
+  
+       0 8 1,15 * * /path/to/command
+
+
+5)- Run a command every Sunday at midnight
+        
+0 0 * * 0 /path/to/command
+
+
+6)- Run a command every 5 minutes:
+        
+*/5 * * * * /path/to/command
+
+7)-
+Run a command every weekday at 6:00 PM:
+        
+0 18 * * 1-5 /path/to/command
+
+
+
+====================================================
+Next Day 
+
+Search and filltering utilities 
+cat , grep , uniq , sort 
+
+
+vim file.txt
+
+cat - 
+1)-how to read multiple files using cat 
+cat file.txt file1.txt
+
+2)- past two files data into one file  
+cat file.txt os-release > newfile.txt
+
+grep command
+ used to find patterns in the files
+
+grep "ubuntu" os-release  -> find ubuntu in os- relesee
+
+ grep -i "Ubuntu" os-release ----> case insencitive 
+
+ grep -ci "Ubuntu" os-release  ---> count with case insensitive  ubuntu in file
+
+grep -v "Ubuntu" os-release --> ignore word 
+
+grep -vi "Ubuntu" os-release --- > ignore word with case insensetive
+
+ls /etc | grep "nginx" --> find file in large folders
+
+ ls /etc | grep "g"  ---> find files that contains g letter
+
+sort command
+ - sort data in alphabetical order
+
+sort file.txt -- > sort file content in alphabetical order
+
+man sort  ----> explore flags of sort command
+
+sort -r file.txt --> sort file content in reverse alphabetical order
+
+ ls /etc | sort | less   --> sort /etc files in alphabetical order and less is used for scrolling 
+
+unique command  --> print consicative unique value
+
+uniq file.txt ---> remove duplicates  which is consicative
+like apple apple  --> apple 
+apple mango apple ---> apple mango apple 
+
+ uniq -c file.txt ---> count items in consicative
+
+ uniq | wc -l file.txt   --> total word count 
+
+sort file.txt | uniq | wc -l    --> count  total words which are unique
+
+ sort file.txt | uniq     -- --> return wordsd which are unique
+
+sort -f file.txt ---->  arrange words alphapetically without case insensitive
+---------------------------------------------------------------------------------
+Next day
+
+find command 
+ - used to search files in directory hierarchy 
+
+find /etc -name "file.txt" --- > used to find file in /etc folder
+      <path> <flag> <fileName>
+
+find / -ctime 2 --- > used to find files which are created 2 days ego
+
+find / -cmin 5 | less -----> used to find files which are created 5 min before
+
+-ctime - days 
+-cmin  - how many mins before file is created
+
+find / -cmin 5 | less
+
+find / -user nilesh | less  ----> used to show files created by nilesh user
+
+find /opt -perm 644 | less ---> find file with permission
+
+find / -user rohit -exec rm -rf {} \;    ----> remove all files of rohit user
+----------------------------------------------------------------------------------
+
+grep , uniq , sort , find  command in detail with use cases 
+
+1)- grep
+####### 
+ - stands for global regular expression pattern .
+ - grep command is used to find pattern in files
+ - similar to ctrl + f in windows that we use to search word in file .
+syntax:-
+grep flag pattern file/path_of_file
+
+ex:- 
+
+1)- grep nilesh hello.txt  ----> returns lines that contains nilesh and highlight word nilesh 
+
+2)- grep -i NILESH hello.txt -----> (-i makes case en-sensitive)
+
+3)- grep -v nilesh hello.txt --------> (-v skip the line that contains nilesh and print every other lines )
+
+4)- grep -wi nil hello.txt ---->(-w used to find exact word in a file )
+
+5)-grep -ni nilesh hello.txt ---(-n return line number : line )
+
+6)-  grep -i nilesh hello.txt hello1.txt ( search in multiple files )
+
+7)-  grep -in nilesh hello.txt hello1.txt (seach in multiple  files + return line number as well )
+
+8)- grep -ine nilesh -ine mahesh -ine pragati hello.tx -----(-e is used to search multiple keywords in file )
+
+9)-  egrep "nilesh|mahesh|pragati" hello.txt ---- > search multiple keywords in a file 
+
+10)-egrep "nilesh|mahesh|pragati" hello.txt hello1.txt --->( search multiple keywords in multiple files)
+
+11)- grep ^keyword file.txt ----> returns lines which starts from keyword
+
+12)- grep keyword$ file.txt -----> return the lines which is end's with keyword 
+
+13)- grep -R "nilesh" linux/  ----(search keywords in all the files present in the linux directory )
+or
+14)-  grep "nilesh" linux/* ---(perform same task)
+
+2)- sort command
+################
+
+ - sort file content in alphabetical order
+
+1)- sort country.txt  ---> sort data in alpha-betical order (sort capital letters first and then small letters)
+
+2)- sort -r contry.txt ----> sort data reverse order
+
+3)- sort -f contry.txt  -------> sort data in alphabetical order (ignore case)
+
+4)- sort -M months.txt        -----> sort the months 
+
+5)- sort -n numbers.txt  ----> sort the numbers
+
+6)- sort -u contry.txt ----> sort data uniquely
+
+3)- uniq command 
+###############
+uniq command is used to remove all repeated lines in a file
+
+1) -c :- returns how many times the line is repeated in consicaively
+2) -d :- display the repeated lines 
+3)- -u display only the uniq lines
+
+4)- find command 
+###############
+
+ - find command search for files in a directory hierarchy 
+
+syntax
+ find <file's path>  <flag> <filename>
+
+1)- find a file in current path using name 
+find . -name file.txt
+
+2)- how to search a file based on their size
+find /path/ -size 50M
+M for MB             + bigger than
+k for KB              - smaller than 
+G for GB
+C for bytes
+
+sudo find /etc -size +10k
+
+3)- how to find only files or only directory ina given path
+find /path/ -type (f/d/l/b/s) 
+f - for the file 
+d - directory
+l - symbolic link
+b - for block device
+s - for socket
+
+sudo find /etc -type f
+find /mnt -type d
+
+4)- how to find a file using -name
+find . -name contry.txt
+
+5)-  ignore case in file name while searching files 
+find . -iname Contry.txt
+
+6)- search files for a given user only 
+find . -user ec2-user
+
+7)- how to search a file based on the inode no ?
+find /path/ -inum <inode no of a file >
+find . -inum 70226
+
+8)- how to search a file based on theri permissions?
+find /path/ -perm /u=r 
+or 
+find /path/ -perm 777
+
+find . -perm 644  note 644 is default file permission
+find . -perm /g=w ----> find a file where group have write permission
+
+9)- how to search all the files which stars with letter a ?
+find . -type f -iname "h*"
+
+10)- how to search all the files which are modified/created after last.txt file?
+find /path/ -newer last.txt
+
+11)- how to search all empty files in a given directory 
+find /path/ -empty
+find /path/ -empty
+
+12)-how to search all the empty files in a given directory and at the same time delete them?
+find /path/ -empty -exec rm {} \;
+
+13)-how to search all the files whose size are between 1-50 MB?
+find /path/ -size +1M -size -50M
+
+14)- how to search 15 days old files?
+find /path/ -mtime 15
+
+---------------------------------------------------------------------------------------------
+
+Next Day 
+
+Managing process and optimizing performance
+
+what is process :-  a process is an instances(example) of a program in execution .
+ - process is executed in cpu
+
+Thread :- (light weight process ) - process of a process.
+
+process visibilities
+
+1)- foreground  - the process which are visible and running in foreground
+2)- background - process which is not visible and runnning in background
+
+ps command - (process status) show last execution of  a user 
+
+jobs - lists all current jobs
+daemon - runs system processes in background 
+ initd / systmd
+
+flages 
+ps -elf | less --> show visible processes in detail 
+-e except kernel processes.
+-l long listing
+-f full listing.
+
+ - use & at the end of the command to run command on background
+ex - tar -cJf /home/etc_backup.tar.xz /etc &
+
+how to check pid 
+ps -elf 
+
+fg % PID -  to run background process in foreground.
+
+kill -9 pid - to kill any running process . 
+
+man ps - to check flags for ps command 
+
+nice command - used to set the prority of a process
+prority range -20 - +19
+ 0 - means system deside
+ (-) - negative means high priority
+19 - lowest priority
+
+jobs command
+
+how to change priorirty (renice - runnig process , nice - start process)
+renice -n 15 (prority) pidnumber
+
+tar -cJf optbackupt.tar.xz /opt &
+[3] 1137
+renice -n 12 1137
+1137 (process ID) old priority 5, new priority 12
+
+top command overview
+---------------------------------------------------------------------
+youtube notes:-
+
+ps command :- (process status)
+##########################
+Used to display all the running process in the linux system
+
+commands 
+1)- ps - show the process of current shell
+fields 
+PID - Unique process Id
+TTY - terminal type of user logged in to 
+TIME - amount of cpu in min and sec that process has been running.
+CMD - name of the the command that launched the process
+
+Most widely used commnds to see the running process
+ps -e - (all the process running)
+ps -ef - (all the process running in full format)
+
+ps aux  -  
+-to see all the running process in BSD(Berkeley software Distribution) format
+-Ideally it gives you more information.
+
+to see the process by username & groupname 
+ps -u <username >
+ps -G <group_name>
+
+ps -ejH
+- to see the process tree
+ex - ps  -ejH | grep httpd 
+ - show tree process of httpd which is apache 
+
+jobs - will show active jobs
+bg - resume jobs to the background (we can use terminal )
+fg - resume jobs to the foreground (we cannot use terminal )
+
+# assign any job to terminal 
+sleep 10s
+# stop the job by ctrl + z
+# now if i use jobs command
+[1] + stopped sleep 10s
+
+# how to resume a specific job ?
+bg % <job_id>
+fg % <job_id>
+
+ex - 
+jobs (if i have multiple processes)
+[1] + stopped sleep 10s
+[2] + stopped sleep 30s
+[3] + stopped sleep 20s
+
+# how to resume process in foreground
+fg % 2
+
+#how to resume process in background
+bg % 3
+
+how to kill running process
+ps -lef  ---> check PID 
+kill -9 pid (-9 its a signal )
+
+nice value:- 
+ - Niceness scale goes from -20 to +19 .
+The lower the no. more priority that task gets.
+
+process priority = nice 
+ex - nice -n 5 processId
+
+# how to find process details
+ps -lef  
+PID :- process Id
+NI - nice value (0 system default)
+
+# how to change priority of a process (using nice & renice)
+
+nice - start the process with specific priority
+ ex - nice -n 10(priority) command 
+
+renice - change priority of runiing process
+renice -n 12(priority) <PID>
+
+IMP :_-
+ nohub
+ - if you want your process keep running even after closing your terminal , you can use nohup
+
+ex - nonub ./echo.sh & 
+
+- after execution nohub creates a new file called nohub.out 
+- this file is similar like log file of what we execute using nohub
+- if any error have that is visible in nohub.out file 
+
+---------------------------------------------------------------------------------------
+Next Day 
+
+top command :-
+############
+the top (table of processes) command shows a real-time view of running processes in linux and displays kernel-managed tasks.
+
+The command also provides a system information summary that shows resource utilization, including CPU and memory usage.
+
+command 
+top
+q for quit
+
+top then c = show commands a bsolute path.
+
+top then k = kill  a process by PID
+top ---> press k ---> Enter PID ---> Enter Signal -9 
+
+top then n = to chnage the no. of task displayed.
+
+top then d/s = to chnage interval of refresh
+
+top then M = to sort the linux running process by memory usage
+
+top then r = you can change nice (priority) value of a process
+top ----> press r ----> enter PID ----> enter Nice value (-20 - +19)
+
+top then h = for help
+
+top then f = fields customization 
+top ---> f ----> * means current showing columns 
+#how to add or remove  column ---> Go to the colum and press "space" or d  
+#change position of a column --->  
+    go to the column press right array to select the column and use up and down array to change column position
+ 
+top then z = change theme
+ top then z then b = change theme and highlight 
+
+load average 1min 5 mini 15 min
+ps -elf vs  ps -aux
+ps -aux vs ps -aux / -a
+what is shaird memory 
+what is virtual ?
+top vs htop
+ps vs top 
+
+hashnode devops website
+
+-----------------------------------------------------------------------------------
+Next Day
+
+Basic networking in linux
+
+Internet and Intranet
+
+Feature	Internet		         Intranet
+
+Access	Public, global	   Private, internal
+
+Users	Anyone with internet  Only authorized personnel
+
+Control	No single owner	  Controlled by an organization
+
+Security	Less secure 	  More secure (firewalls, 			(more threats)	  access)
+
+Example	Google.com	  company-internal tools (ERP, 			   CRM)
+
+
+network - how two devices communicate with each other other is know as network
+
+network tropologies
+  []                  []
+   |                   |
+-----------------------------
+ |              |                   |
+[]            []                 [ ]
+1)-Bus tropology 
+2)- ring tropology
+3)- star tropology
+4)- mesh tropology
+
+Types of Networks
+
+1. LAN (Local Area Network)
+- 
+Covers a small area like a home, office, or school.
+
+ - 
+High speed and low cost.
+ - 
+
+Connects devices like computers, printers, routers.
+
+
+ - Usually privately owned.
+
+
+Example: A Wi-Fi network in your house or office.
+
+ 2. MAN (Metropolitan Area Network)
+
+- Covers a city or large campus.
+- 
+
+Larger than LAN, smaller than WAN.
+
+
+- Can connect multiple LANs together.
+
+
+- Often managed by ISPs or large organizations.
+
+
+Example: College campuses or city-wide internet (like Pune Smart City Wi-Fi).
+
+3. WAN (Wide Area Network)
+
+ - Covers a large geographic area — countries, continents.
+
+
+- Slower than LAN due to long distances.
+- 
+
+Uses public networks (like the Internet) or leased lines.
+
+ -Expensive and complex to manage.
+Example: The Internet, or a bank's network across many countries.
+
+Networking protocols 
+
+TCP (Transmission Control Protocol)
+
+Connection-oriented: Establishes a connection before sending data.
+
+
+Reliable: Ensures data is delivered in order and without errors.
+
+Slower, but safer.
+
+
+Uses acknowledgments and retransmission if data is lost.
+
+
+
+Used for:
+
+
+
+Web browsing (HTTP/HTTPS)
+
+
+File transfers (FTP)
+
+
+Emails (SMTP, IMAP, POP3)
+
+ 
+
+Think: Like sending a registered courier — tracked and confirmed.
+
+
+
+UDP (User Datagram Protocol)
+
+Connectionless: Sends data without setting up a connection.
+
+Unreliable: No guarantee of delivery, order, or duplicate checking.
+
+
+Faster, with less overhead.
+
+
+Good for real-time applications where speed matters more than accuracy.
+
+ 
+
+Used for:
+
+
+Online gaming
+
+
+Video streaming
+
+VoIP (voice calls)
+
+
+DNS (Domain Name System)
+
+ 
+
+Think: Like dropping postcards — fast but not tracked.
+
+TCP vs UDP
+
+Feature		TCP		                UDP
+
+Connection	Yes                                                     No
+	       (connection-oriented                   (connectionless)
+
+
+Reliability	                    High                                                  Low
+	(acknowledgments & checks)             (no guarantee)
+
+
+Speed	                   Slower                                             Faster    
+                           (due to checks)                        (no checking overhead)
+
+
+
+Order of packets       Guarantee                               Not guaranteed
+
+
+Data loss handling	Retransmits                       No retransmission
+
+
+                                         lost data 
+
+
+
+imp networking protocols with there port number 
+
+ip address :- ex -  phoneNo( logical address)
+logical address of a device to cammunicate over internet 
+mac address:- ex -  IMEI No (permanent adress)
+
+ipv4  - 32 bits
+ipv6 - 128 bits
+
+public ip - 
+private ip
+
+#how to check ip address
+ip addr
+172.19.255.255
+ifconfig
+172.19.0.13 
+
+check the domain is live or not
+dig website.com
+
+ping 
+
+nslookup facebook.com
+
+hostname - show machine name
+
+wget link - used to downlode over internet
+
+wget vs curl
+wget is used to downlode content from internet 
+
+curl downlode content from internet as well as  used to data transfer between two servers
