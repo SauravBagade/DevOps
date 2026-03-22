@@ -1,0 +1,143 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = "us-east-1"
+        TF = "terraform"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo "Cloning repository..."
+                git branch: 'main', url: 'https://github.com/BagadeSaurav/terraform.git'
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                echo "⚙ Initializing Terraform..."
+                withCredentials([usernamePassword(credentialsId: 'saurav', 
+                                                  usernameVariable: 'AWS_ACCESS_KEY_ID', 
+                                                  passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                        export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+                        export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+                        export AWS_DEFAULT_REGION=${AWS_REGION}
+                        ${TF} init
+                    '''
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                echo "📝 Planning Terraform changes..."
+                withCredentials([usernamePassword(credentialsId: 'saurav', 
+                                                  usernameVariable: 'AWS_ACCESS_KEY_ID', 
+                                                  passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                        export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+                        export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+                        export AWS_DEFAULT_REGION=${AWS_REGION}
+                        ${TF} plan -out=tfplan.out
+                    '''
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                input message: "⚠ Proceed with Terraform apply?"
+                echo "🚀 Applying Terraform configuration..."
+                withCredentials([usernamePassword(credentialsId: 'saurav', 
+                                                  usernameVariable: 'AWS_ACCESS_KEY_ID', 
+                                                  passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                        export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+                        export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+                        export AWS_DEFAULT_REGION=${AWS_REGION}
+                        ${TF} apply -auto-approve tfplan.out
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Terraform applied successfully!"
+        }
+        failure {
+            echo "❌ Pipeline failed!"
+        }
+    }
+}
+--------------------------------------------------------------------------------------------------------------
+pipeline {
+    agent any
+
+    stages {
+        stage('Install Packages') {
+            steps {
+                sh '''
+                  sudo apt update -y
+                  sudo apt install -y openjdk-17-jdk maven nodejs npm apache2
+                  java -version
+                  mvn -version
+                  node -v
+                  npm -v
+                '''
+            }
+        }
+
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/BagadeSaurav/EasyCRUD-docker.git'
+            }
+        }
+
+        stage('Build Backend') {
+            steps {
+                dir('backend') {
+                    sh 'mvn clean install -DskipTests=true'
+                }
+            }
+        }
+
+        stage('Run Backend') {
+            steps {
+                dir('backend/target') {
+                    sh 'nohup java -jar student-registration-backend-0.0.1-SNAPSHOT.jar > app.log 2>&1 &'
+                }
+            }
+        }
+
+        stage('Install Frontend Dependencies') {
+            steps {
+                dir('frontend') {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Build React App') {
+            steps {
+                dir('frontend') {
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Deploy to Apache') {
+            steps {
+                sh '''
+          sudo systemctl start apache2
+          sudo rm -rf /var/www/html/*
+          sudo cp -rf frontend/dist/* /var/www/html/
+        '''
+            }
+        }
+    }
+}
