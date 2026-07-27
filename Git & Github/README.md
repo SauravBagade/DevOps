@@ -12,9 +12,9 @@
 
 There are **two main types**:
 
-### 1️⃣ CVCS — Centralized Version Control System
+### 1️⃣ CVCS — Centralized Version Control System github
 
-### 2️⃣ DVCS — Distributed Version Control System
+### 2️⃣ DVCS — Distributed Version Control System git
 
 ---
 
