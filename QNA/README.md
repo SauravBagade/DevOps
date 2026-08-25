@@ -8,14 +8,13 @@ QNA
 👉
 
 ```text
-Hello, my name is Saurav Bagade. I recently completed my MCA and I have hands-on experience in DevOps.
+Hello, my name is Saurav Bagade. I completed my MCA from VIIT Baramati, affiliated with Savitribai Phule Pune University, in 2025.
 
-I have worked on AWS services like EC2, S3, IAM, and VPC. I also have experience in Docker, Kubernetes, Jenkins, and Terraform.
+I have 9 months of experience as a DevOps Intern at Hisan Labs, where I worked with AWS services such as EC2, S3, IAM, and VPC. I also have hands-on experience with Docker, Kubernetes, Jenkins, Terraform, and Linux.
 
-I completed a DevOps project where I built CI/CD pipelines and deployed applications on AWS EKS.
+I have worked on a DevOps project where I created Dockerfiles, built CI/CD pipelines using Jenkins, and deployed applications on AWS EKS using Kubernetes deployment files.
 
-I am looking for an opportunity to start my career as a DevOps Engineer.
-```
+I enjoy working with cloud infrastructure and automation, and I’m looking for an opportunity to grow as a DevOps Engineer and contribute to a professional team.
 
 ---
 
