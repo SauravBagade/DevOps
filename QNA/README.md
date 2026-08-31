@@ -16,6 +16,8 @@ I have worked on a DevOps project where I created Dockerfiles, built CI/CD pipel
 
 I enjoy working with cloud infrastructure and automation, and I’m looking for an opportunity to grow as a DevOps Engineer and contribute to a professional team.
 
+```
+
 ---
 
 ## 📄 2. Walk me through your resume
